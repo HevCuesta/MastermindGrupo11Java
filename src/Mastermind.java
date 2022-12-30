@@ -15,6 +15,7 @@ public class Mastermind {
 	public static final String RESET = "\033[0m";
 	
 	// Se declaran las variables de 
+	//A
 	
 	//Funcion para limpiar consola, solo funciona cuando se ejecuta desde cmd o bash, ningun tipo de clear funciona con la consola de eclipse
 	public static void limpiarConsola() {
