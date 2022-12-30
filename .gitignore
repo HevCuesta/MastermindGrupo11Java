@@ -7,7 +7,6 @@ target/**
 
 # eclipse specific
 *.pydevproject
-.project
 .metadata
 tmp/**
 tmp/**/*
@@ -16,7 +15,6 @@ tmp/**/*
 *.swp
 *~.nib
 local.properties
-.classpath
 .settings/
 .loadpath
 
