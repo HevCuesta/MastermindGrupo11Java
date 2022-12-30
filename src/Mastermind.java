@@ -27,8 +27,8 @@ public class Mastermind {
 				"BIENVENIDO A MASTERMIND! \r"
 				+ "Mastermind es un juego de dos jugadores en el que uno de los jugadores creará una contraseña consistente de colores y el otro tiene que adivinarla \r"
 				+ "En este caso, usted jugará contra el ordenador \r"
-				+ "La contraseña que tendrá que adivinar consistirá de 7 colores posibles, que se pondrán en una secuencia de 5 espacios, aqui tiene un ejemplo: "
-				+ );
+				+ "La contraseña que tendrá que adivinar consistirá de 7 colores posibles, que se pondrán en una secuencia de 5 espacios, aqui tiene un ejemplo: \r"
+				+ CYAN + RESET + BLANCO + RESET + AZUL + RESET + MORADO + RESET + VERDE + RESET);
 	}
 	
 	public static void main(String[] args) {
@@ -54,7 +54,7 @@ public class Mastermind {
 		case 4:
 			limpiarConsola();
 			tutorial();
-			
+			break;
 		default:
 			System.out.println("Eleccion no valida, pruebe otra vez.");
 		}
