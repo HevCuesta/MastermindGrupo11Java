@@ -65,7 +65,6 @@ public class Mastermind {
 		boolean acertado = true;
 		
 		for (int i = 0; i < resultado.length; i++) if (resultado[i] != 'N') acertado = false; //anula la veracidad de haber acertado si hay almenos un color incorrecto.
-		
 		return acertado;
 		
 	}//fin función posibleAcierto.
@@ -74,72 +73,53 @@ public class Mastermind {
 	public static boolean validarRespuesta (char combinacion[]) {
 		
 	boolean combinacionValida = false; //bool para asegurarse de que las combinaciones introducidas sean válidas.
-		
-			try {	
-			
+		try {
+				
 			for(int i = 0; i < 5; i++) {
-				
 				combinacionValida = false;
-				
 				if (combinacion[i] != 'R' && combinacion[i] != 'C' && combinacion[i] != 'V' && combinacion[i] != 'A' &&
 						combinacion[i] != 'Z' && combinacion[i] != 'M' && combinacion[i] != 'B') { System.out.println("Combinación no válida, inténtelo de nuevo. \r"
 																													+ " Pst!: R = Rojo    C = Cian    V = Verde    A = Amarillo    Z = AZUL    M = Morado    B = BLANCO ");
 						i = 5;
 				}else combinacionValida = true;
-				
 			}
+		}
 		
-		}catch (Exception ArrayIndexOutOfBoundsException) {
-			
+		catch (Exception ArrayIndexOutOfBoundsException) {
 			System.out.println("Combinación no válida, inténtelo de nuevo.");
 			combinacionValida = false;
-			
 		}	
 		return combinacionValida;
-		
 	}//fin función validarResuesta.
 	
 	
 	public static char[] analizarRespuesta (char combinacion[], char combinacionSecreta[]){
-		
-	
 		char resultado[] = new char [5];
 		
 			for (int i = 0; i < combinacionSecreta.length; i++) {
-				
 				 for (int o = 0; o < combinacionSecreta.length; o++) {
-					
 					 if (combinacion[i] == combinacionSecreta[o]) {
-						 
 						 resultado[i] = 'B';
 						 o = 5;
-						 
 					 } else resultado [i] = '_';	
 				  }
-
-				 	if (combinacion[i] == combinacionSecreta[i]) resultado[i] = 'N';
-
-				
+				 
+				 	if (combinacion[i] == combinacionSecreta[i]) resultado[i] = 'N';	
 			}
 		
 			for (int i = 0; i < 5; i++) {
-				
 				switch(resultado[i]) {
-				
 					case 'B': System.out.print(BLANCO + RESET); break;
 					case 'N': System.out.print(NEGRO + RESET); break; 
 					default: System.out.print('_');
 				}
-				
 			}
 		
 		return resultado;
-	
 	}//fin función analizarRespuesta
 	
 	
 	public static void nuevoJuego() {
-		limpiarConsola();
 		
 		Scanner in = new Scanner (System.in);
 		
@@ -175,11 +155,6 @@ public class Mastermind {
 	in.close();
 		
 	}//fin void nuevoJuego();
-	
-	
-
-	
-	
 	
 	
 	
