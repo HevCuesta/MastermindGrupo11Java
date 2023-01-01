@@ -153,7 +153,6 @@ public class Mastermind {
 		// Para el input del usuario
 		Scanner in = new Scanner(System.in);
 		
-		
 		System.out.println("¡Bienvenido a Mastermind! Elija una de las siguientes opciones: \r\n "
 				+ "1. Jugar una nueva partida \r\n "
 				+ "2. Seguir con una partida anterior \r\n "
@@ -193,6 +192,9 @@ public class Mastermind {
 			break;
 		case 5:
 
+			break;
+		case 6:
+			WriteCSV.escribirArchivo("Paco", "6 intentos", "partidas/top5.csv");
 			break;
 		default:
 			System.out.println("Eleccion no valida, pruebe otra vez.");
