@@ -35,9 +35,9 @@ public class Mastermind {
 				+ " Para intentar adivinar la contraseña, deberá escribir una secuencia de 5 letras, y cada una corresponde a un color: \r\n"
 				+ " R = Rojo    C = Cian    V = Verde    A = Amarillo    Z = AZUL    M = Morado    B = BLANCO \r\n"
 				+ "Por ejemplo, si escribo RVVAZ estaria intentado adivinar Rojo, Verde, Verde, Amarillo, Azul \r\n"
-				+ "En caso de haber acertado tanto la posición como el color, el hueco se rellenará con el simbolo: ◉ \r\n"
-				+ "En caso de haber acertado el color pero no la posición, el hueco se rellenará con el simbolo: • \r\n"
-				+ "Y en caso de no haber acertado ni el color ni la posición el hueco se rellenará con el simbolo: X\r\n"
+				+ "En caso de haber acertado tanto la posición como el color, el hueco se rellenará con el simbolo: " + BLANCO + RESET + "\r\n"
+				+ "En caso de haber acertado el color pero no la posición, el hueco se rellenará con el simbolo: " + NEGRO + RESET + "\r\n"
+				+ "Y en caso de no haber acertado ni el color ni la posición el hueco se rellenará con el simbolo: _\r\n"
 				+ "Para volver al menu principal ponga cualquier caracter y presione enter.");
 		
 				
@@ -63,7 +63,11 @@ public class Mastermind {
 	public static boolean posibleAcierto (char resultado[]) {
 		boolean acertado = true;
 		
-		for (int i = 0; i < resultado.length; i++) if (resultado[i] != 'N') acertado = false; //anula la veracidad de haber acertado si hay almenos un color incorrecto.
+		for (int i = 0; i < resultado.length; i++) {
+			if (resultado[i] != 'N') {
+				acertado = false; //anula la veracidad de haber acertado si hay almenos un color incorrecto.
+			}
+		}
 		return acertado;
 		
 	}//fin función posibleAcierto.
@@ -134,13 +138,15 @@ public class Mastermind {
 			
 			if(validarRespuesta(combinacion) == true) {
 				resultado = analizarRespuesta(combinacion, combinacionSecreta);
-				intentos++;
 			}
-			
+			intentos++;
 	   } while(posibleAcierto(resultado) == false);
-	
-	System.out.println("¡¡Has acertado!! Introduce tu nombre a continuación: ");
-	String nombreUsuario = in.nextLine();
+	    if (posibleAcierto(resultado) == true) {
+	    	System.out.println("\r\n¡¡Has acertado!! Introduce tu nombre a continuación: ");
+	    	String nombreUsuario = in.nextLine();
+	    	WriteCSV.escribirArchivo(nombreUsuario, intentos, "partidas/top5.csv");
+	    }
+
 	
 	
 	in.close();
@@ -156,7 +162,7 @@ public class Mastermind {
 		System.out.println("¡Bienvenido a Mastermind! Elija una de las siguientes opciones: \r\n "
 				+ "1. Jugar una nueva partida \r\n "
 				+ "2. Seguir con una partida anterior \r\n "
-				+ "3. Enseñar tablero de los mejores jugadores \r\n "
+				+ "3. Clasificación de los mejores jugadores \r\n "
 				+ "4. Como Jugar \r\n "
 				+ "5. Salir");
 		
@@ -194,7 +200,7 @@ public class Mastermind {
 
 			break;
 		case 6:
-			WriteCSV.escribirArchivo("Paco", "6 intentos", "partidas/top5.csv");
+			WriteCSV.escribirArchivo("Paco", 6, "partidas/top5.csv");
 			break;
 		default:
 			System.out.println("Eleccion no valida, pruebe otra vez.");

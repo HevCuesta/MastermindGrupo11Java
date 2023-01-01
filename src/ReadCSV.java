@@ -6,7 +6,8 @@ import java.io.IOException;
 
 public class ReadCSV {
 	public static final String DELIMITADOR = ",";
-	
+			
+
 	public static void leerArchivo(String direccionArchivo) {
 		// Se abre el archivo en un bufer de lecutra
 		BufferedReader Lectura = null;
