@@ -24,30 +24,30 @@ public class Mastermind {
 		System.out.flush();
 	}
 	
+	
 	public static void tutorial() {
 		System.out.println(
 				"BIENVENIDO A MASTERMIND! \r"
-				+ "Mastermind es un juego de dos jugadores en el que uno de los jugadores creará una contraseña consistente de colores y el otro tiene que adivinarla \r"
-				+ "En este caso, usted jugará contra el ordenador \r"
-				+ "La contraseña que tendrá que adivinar consistirá de 7 colores posibles, que se pondrán en una secuencia de 5 espacios, aqui tiene un ejemplo: \r"
-				+ CYAN + ' ' + RESET + BLANCO + ' ' + RESET + AZUL + ' ' + RESET + MORADO + ' ' + RESET + VERDE + ' ' + RESET +'\r'
-				+ " Para intentar adivinar la contraseña, deberá escribir una secuencia de 5 letras, y cada una corresponde a un color: \r"
-				+ " R = Rojo    C = Cian    V = Verde    A = Amarillo    Z = AZUL    M = Morado    B = BLANCO \r"
-				+ "Por ejemplo, si escribo RVVAZ estaria intentado adivinar Rojo, Verde, Verde, Amarillo, Azul \r"
-				+ "En caso de haber acertado tanto la posición como el color, el hueco se rellenará con el simbolo: ◉ \r"
-				+ "En caso de haber acertado el color pero no la posición, el hueco se rellenará con el simbolo: • \r"
-				+ "Y en caso de no haber acertado ni el color ni la posición el hueco se rellenará con el simbolo: X\r"
+				+ "Mastermind es un juego de dos jugadores en el que uno de los jugadores crea una contraseña consistente de colores y el otro tiene que adivinarla \r\n"
+				+ "En este caso, usted jugará contra el ordenador \r\n"
+				+ "La contraseña que tendrá que adivinar consistirá de 7 colores posibles, que se pondrán en una secuencia de 5 espacios, aqui tiene un ejemplo: \r\n"
+				+ CYAN + ' ' + RESET + BLANCO + ' ' + RESET + AZUL + ' ' + RESET + MORADO + ' ' + RESET + VERDE + ' ' + RESET +"\r\n"
+				+ " Para intentar adivinar la contraseña, deberá escribir una secuencia de 5 letras, y cada una corresponde a un color: \r\n"
+				+ " R = Rojo    C = Cian    V = Verde    A = Amarillo    Z = AZUL    M = Morado    B = BLANCO \r\n"
+				+ "Por ejemplo, si escribo RVVAZ estaria intentado adivinar Rojo, Verde, Verde, Amarillo, Azul \r\n"
+				+ "En caso de haber acertado tanto la posición como el color, el hueco se rellenará con el simbolo: ◉ \r\n"
+				+ "En caso de haber acertado el color pero no la posición, el hueco se rellenará con el simbolo: • \r\n"
+				+ "Y en caso de no haber acertado ni el color ni la posición el hueco se rellenará con el simbolo: X\r\n"
 				+ "Para volver al menu principal ponga cualquier caracter y presione enter.");
 		
 				
 	}
 	
-	public static char generarCombinacion(int i) {
-		
+	
+	public static char generarCombinacion(int i) {	
 		char combinacionSecreta[] = new char[5];
 		
-			switch( (int) (Math.random()*7)) {
-		
+		switch( (int) (Math.random()*7)) {
 			case 0:	combinacionSecreta[i] = 'C'; break; //cyan
 			case 1:	combinacionSecreta[i] = 'R'; break; //rojo
 			case 2:	combinacionSecreta[i] = 'V'; break; //verde
@@ -55,8 +55,7 @@ public class Mastermind {
 			case 4:	combinacionSecreta[i] = 'Z'; break; //azul
 			case 5:	combinacionSecreta[i] = 'M'; break; //morado
 			case 6:	combinacionSecreta[i] = 'B'; break; //blanco
-			}
-		
+		}
 		return combinacionSecreta[i];
 	}
 	
@@ -120,37 +119,29 @@ public class Mastermind {
 	
 	
 	public static void nuevoJuego() {
-		
 		Scanner in = new Scanner (System.in);
 		
 		char combinacionSecreta[] = new char[5];	
 		char combinacion[] = new char[5];
 		char resultado[] = new char [5];
-		
-
-	
-		
+		int intentos = 0;
 		
 		for(int i = 0; i < combinacionSecreta.length; i++) combinacionSecreta[i] = generarCombinacion(i);
 		
-		
-		
+	    do {	
+			System.out.println(" Introduce combinación de colores:");
+			combinacion = in.next().toUpperCase().toCharArray();
+			
+			if(validarRespuesta(combinacion) == true) {
+				resultado = analizarRespuesta(combinacion, combinacionSecreta);
+				intentos++;
+			}
+			
+	   } while(posibleAcierto(resultado) == false);
 	
+	System.out.println("¡¡Has acertado!! Introduce tu nombre a continuación: ");
+	String nombreUsuario = in.nextLine();
 	
-	do {	
-		
-		System.out.println(" Introduce combinación de colores:");
-		
-		combinacion = in.next().toUpperCase().toCharArray();
-		
-		if(validarRespuesta(combinacion) == true) resultado = analizarRespuesta(combinacion, combinacionSecreta);
-		
-	
-		
-	
-	} while(posibleAcierto(resultado) == false);
-	
-	System.out.println("¡¡Has acertado!! ¿Quieres guardar la partida?");
 	
 	in.close();
 		
@@ -162,7 +153,13 @@ public class Mastermind {
 		// Para el input del usuario
 		Scanner in = new Scanner(System.in);
 		
-		System.out.println("¡Bienvenido a Mastermind! Elija una de las siguientes opciones: \r\n 1. Jugar una nueva partida \r\n 2. Seguir con una partida anterior \r\n 3. Salir \r\n 4. Como Jugar");
+		
+		System.out.println("¡Bienvenido a Mastermind! Elija una de las siguientes opciones: \r\n "
+				+ "1. Jugar una nueva partida \r\n "
+				+ "2. Seguir con una partida anterior \r\n "
+				+ "3. Enseñar tablero de los mejores jugadores \r\n "
+				+ "4. Como Jugar \r\n "
+				+ "5. Salir");
 		
 		int eleccion1;
 		
@@ -175,7 +172,8 @@ public class Mastermind {
 			eleccion1 = 99;
 			
 		}
-		//Switch para las opciones
+		
+		//MENU PRINCIPAL
 
 		switch (eleccion1) {
 		case 1:
@@ -186,11 +184,15 @@ public class Mastermind {
 			
 			break;
 		case 3:
-			
+			limpiarConsola();
+			ReadCSV.leerArchivo("partidas/top5.csv");
 			break;
 		case 4:
 			limpiarConsola();
 			tutorial();
+			break;
+		case 5:
+
 			break;
 		default:
 			System.out.println("Eleccion no valida, pruebe otra vez.");
