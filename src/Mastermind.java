@@ -142,6 +142,7 @@ public class Mastermind {
 				resultado = analizarRespuesta(combinacion, combinacionSecreta);
 			}
 			intentos++;
+			WriteCSV.escribirArchivoGuardar(resultado ,intentos, "partidas/PartidaGuardada.csv"); 
 	   } while(posibleAcierto(resultado) == false);
 	    if (posibleAcierto(resultado) == true) {
 	    	System.out.println("\r\n¡¡Has acertado!! Introduce tu nombre a continuación: ");
