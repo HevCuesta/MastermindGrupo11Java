@@ -6,10 +6,10 @@ import java.io.BufferedReader;
 
 public class WriteCSV {
 	public static final String DELIMITADOR = ",";
-
+//TODO: FUNCION PARA ORDENAR LOS INTENTOS DE MEJOR A PEOR
 	public static void escribirArchivo(String nombreUsuario, int intentos, String direccionArchivo) {
 		// String que se quiere escribir en el archivo
-		String linea = nombreUsuario.toUpperCase() + DELIMITADOR + " " + intentos + " intentos";
+		String linea = nombreUsuario.toUpperCase() + DELIMITADOR + " " + intentos;
 		
 		try {
 			FileWriter fileWriter = new FileWriter(direccionArchivo, true); // El segundo parametro es true para que se añada al final del archivo
@@ -26,7 +26,7 @@ public class WriteCSV {
 		}
 	}
 	
-	public static int numLineas(String direccionArchivo) {
+	public static int numLineasArchivo(String direccionArchivo) {
 		//Se cuentan el numero de lineas para no hacer print a mas de cinco.
 		int lineas = 0;
 		try (BufferedReader reader = new BufferedReader(new FileReader(direccionArchivo))) {

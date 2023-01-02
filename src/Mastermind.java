@@ -160,20 +160,19 @@ public class Mastermind {
 	public static void main(String[] args) {
 		// Para el input del usuario
 		Scanner in = new Scanner(System.in);
-		
-		System.out.println("¡Bienvenido a Mastermind! Elija una de las siguientes opciones: \r\n "
-				+ "1. Jugar una nueva partida \r\n "
-				+ "2. Seguir con una partida anterior \r\n "
-				+ "3. Clasificación de los mejores jugadores \r\n "
-				+ "4. Como Jugar \r\n "
-				+ "5. Salir");
-		
+		Scanner in2 = new Scanner(System.in);
 		
 		//Bucle while para volver a comenzar cuando se termine una partida
 		boolean restart = true;
 		while (restart) {
 			restart = false;
-			
+			System.out.println("¡Bienvenido a Mastermind! Elija una de las siguientes opciones: \r\n "
+					+ "1. Jugar una nueva partida \r\n "
+					+ "2. Seguir con una partida anterior \r\n "
+					+ "3. Clasificación de los mejores jugadores \r\n "
+					+ "4. Como Jugar \r\n "
+					+ "5. Salir");
+
 			int eleccion1;
 
 			try {
@@ -190,30 +189,47 @@ public class Mastermind {
 			}
 
 			// MENU PRINCIPAL
-			
+			String eleccion2 = null;
 			switch (eleccion1) {
 			case 1:
 				limpiarConsola();
 				nuevoJuego();
+				System.out.println("Presione 1 y enter para volver al menu principal, presione cualquier otra tecla para salir");
+				eleccion2 = in2.next();
+				if (eleccion2=="1") {
+					restart=true;
+				} else 
 				break;
 			case 2:
 				
 				break;
 			case 3:
 				limpiarConsola();
-				ReadCSV.leerArchivo("partidas/top5.csv");
-				System.out.println("Para ver todas las partidas anteriores, puede mirarlo en el archivo top5.csv guardado en la carpeta con el nombre \"partidas\"");
+				int numLineas = 5;
+				ReadCSV.leerArchivo("partidas/top5.csv", numLineas);
+				System.out.println("Presione 3 y enter otra vez si quiere ver todos los resultados, presione cualquier otra tecla para volver al menu.");
+				if (in.next().equals("3")) {
+					numLineas = WriteCSV.numLineasArchivo("partidas/top5.csv");
+					ReadCSV.leerArchivo("partidas/top5.csv", numLineas);
+					break;
+				} else
+				restart=true;
 				break;
 			case 4:
 				limpiarConsola();
 				tutorial();
+				eleccion2 = in.next();
+				limpiarConsola();
+				if (eleccion2!=null) {
+					restart=true;
+				} else 
 				break;
 			case 5:
 
 				break;
 			//Case para hacer pruebas
 			case 6:
-				ReadCSV.leerArchivo("partidas/top5.csv");
+
 				break;
 			default:
 				System.err.println("Eleccion no valida, pruebe otra vez.");
@@ -222,6 +238,7 @@ public class Mastermind {
 			}
 			
 		}
+		in2.close();
 		in.close();
 	}
 
