@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 
+
 public class ReadCSV {
 	public static final String DELIMITADOR = ",";
 			
@@ -16,11 +17,10 @@ public class ReadCSV {
 			 File csvFile = new File(direccionArchivo);
 			 if (csvFile.isFile()) {
 				 Lectura = new BufferedReader(new FileReader(csvFile));
-				
 				 // Lector linea
 				 String linea = Lectura.readLine();
 		  
-				 while (linea != null) {
+				 for (int o = 0; o < 5; o++) {
 					 // Se lee linea a linea, con las comas como delimitadores de campo en cada linea
 					 String[] campos = linea.split(DELIMITADOR); 
 		   
@@ -53,4 +53,7 @@ public class ReadCSV {
 		 }
 
 	}
+	
+	
+	
 }

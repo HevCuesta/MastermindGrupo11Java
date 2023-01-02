@@ -14,7 +14,11 @@ public class Mastermind {
     public static final String BLANCO = "\033[0;37m○";
     public static final String NEGRO = "\u001B[30m○";
     public static final String RESET = "\033[0m";
-	
+    
+    //Variables finales de simbolos que se usarán en la partida
+    public static final String CORRECTO = "\033[0;37m✓";
+    public static final String SEMICORRECTO = "\033[0;37m⍻";
+    
 	// Se declaran las variables de 
 	//A
 	
@@ -35,8 +39,8 @@ public class Mastermind {
 				+ " Para intentar adivinar la contraseña, deberá escribir una secuencia de 5 letras, y cada una corresponde a un color: \r\n"
 				+ " R = Rojo    C = Cian    V = Verde    A = Amarillo    Z = AZUL    M = Morado    B = BLANCO \r\n"
 				+ "Por ejemplo, si escribo RVVAZ estaria intentado adivinar Rojo, Verde, Verde, Amarillo, Azul \r\n"
-				+ "En caso de haber acertado tanto la posición como el color, el hueco se rellenará con el simbolo: " + BLANCO + RESET + "\r\n"
-				+ "En caso de haber acertado el color pero no la posición, el hueco se rellenará con el simbolo: " + NEGRO + RESET + "\r\n"
+				+ "En caso de haber acertado tanto la posición como el color, el hueco se rellenará con el simbolo: " + CORRECTO + RESET + "\r\n"
+				+ "En caso de haber acertado el color pero no la posición, el hueco se rellenará con el simbolo: " + SEMICORRECTO + RESET + "\r\n"
 				+ "Y en caso de no haber acertado ni el color ni la posición el hueco se rellenará con el simbolo: _\r\n"
 				+ "Para volver al menu principal ponga cualquier caracter y presione enter.");
 		
@@ -112,8 +116,8 @@ public class Mastermind {
 		
 			for (int i = 0; i < 5; i++) {
 				switch(resultado[i]) {
-					case 'B': System.out.print(BLANCO + RESET); break;
-					case 'N': System.out.print(NEGRO + RESET); break; 
+					case 'B': System.out.print(SEMICORRECTO + RESET); break;
+					case 'N': System.out.print(CORRECTO + RESET); break; 
 					default: System.out.print('_');
 				}
 			}
@@ -133,7 +137,7 @@ public class Mastermind {
 		for(int i = 0; i < combinacionSecreta.length; i++) combinacionSecreta[i] = generarCombinacion(i);
 		
 	    do {	
-			System.out.println(" Introduce combinación de colores:");
+			System.out.println("Introduce la combinación de colores a adivinar:");
 			combinacion = in.next().toUpperCase().toCharArray();
 			
 			if(validarRespuesta(combinacion) == true) {
@@ -143,7 +147,7 @@ public class Mastermind {
 	   } while(posibleAcierto(resultado) == false);
 	    if (posibleAcierto(resultado) == true) {
 	    	System.out.println("\r\n¡¡Has acertado!! Introduce tu nombre a continuación: ");
-	    	String nombreUsuario = in.nextLine();
+	    	String nombreUsuario = in.next();
 	    	WriteCSV.escribirArchivo(nombreUsuario, intentos, "partidas/top5.csv");
 	    }
 
@@ -166,46 +170,60 @@ public class Mastermind {
 				+ "4. Como Jugar \r\n "
 				+ "5. Salir");
 		
-		int eleccion1;
 		
-		try {
-		
-		 eleccion1 = in.nextInt();
-		
-		} catch (Exception InputMismatchException) {
-		
-			eleccion1 = 99;
+		//Bucle while para volver a comenzar cuando se termine una partida
+		boolean restart = true;
+		while (restart) {
+			restart = false;
+			
+			int eleccion1;
+
+			try {
+
+				eleccion1 = in.nextInt();
+
+			} catch (Exception InputMismatchException) {
+
+				System.err.println("Eleccion no valida, pruebe otra vez.");
+				restart=true;
+				in.next();
+				continue;
+
+			}
+
+			// MENU PRINCIPAL
+			
+			switch (eleccion1) {
+			case 1:
+				limpiarConsola();
+				nuevoJuego();
+				break;
+			case 2:
+				
+				break;
+			case 3:
+				limpiarConsola();
+				ReadCSV.leerArchivo("partidas/top5.csv");
+				System.out.println("Para ver todas las partidas anteriores, puede mirarlo en el archivo top5.csv guardado en la carpeta con el nombre \"partidas\"");
+				break;
+			case 4:
+				limpiarConsola();
+				tutorial();
+				break;
+			case 5:
+
+				break;
+			//Case para hacer pruebas
+			case 6:
+				ReadCSV.leerArchivo("partidas/top5.csv");
+				break;
+			default:
+				System.err.println("Eleccion no valida, pruebe otra vez.");
+				restart = true;
+				break;
+			}
 			
 		}
-		
-		//MENU PRINCIPAL
-
-		switch (eleccion1) {
-		case 1:
-			limpiarConsola();
-			nuevoJuego();
-			break;
-		case 2:
-			
-			break;
-		case 3:
-			limpiarConsola();
-			ReadCSV.leerArchivo("partidas/top5.csv");
-			break;
-		case 4:
-			limpiarConsola();
-			tutorial();
-			break;
-		case 5:
-
-			break;
-		case 6:
-			WriteCSV.escribirArchivo("Paco", 6, "partidas/top5.csv");
-			break;
-		default:
-			System.out.println("Eleccion no valida, pruebe otra vez.");
-		}
-
 		in.close();
 	}
 
