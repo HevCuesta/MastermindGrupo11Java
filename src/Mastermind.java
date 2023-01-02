@@ -19,8 +19,6 @@ public class Mastermind {
     public static final String CORRECTO = "\033[0;37m✓";
     public static final String SEMICORRECTO = "\033[0;37m⍻";
     
-	// Se declaran las variables de 
-	//A
 	
 	//Funcion para limpiar consola, solo funciona cuando se ejecuta desde cmd o bash, ningun tipo de clear funciona con la consola de eclipse
 	public static void limpiarConsola() {
@@ -28,7 +26,7 @@ public class Mastermind {
 		System.out.flush();
 	}
 	
-	
+	//Funcion Tutorial como jugar
 	public static void tutorial() {
 		System.out.println(
 				"BIENVENIDO A MASTERMIND! \r"
@@ -47,7 +45,7 @@ public class Mastermind {
 				
 	}
 	
-	
+	//Funcion para generar combinacion aleatoria a adivinar
 	public static char generarCombinacion(int i) {	
 		char combinacionSecreta[] = new char[5];
 		
@@ -63,7 +61,7 @@ public class Mastermind {
 		return combinacionSecreta[i];
 	}
 	
-	
+	//Funcion para ver si hay un posible acierto
 	public static boolean posibleAcierto (char resultado[]) {
 		boolean acertado = true;
 		
