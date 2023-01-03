@@ -9,9 +9,6 @@ public class ReadCSV {
 	public static final String DELIMITADOR = ",";
 			
 	
-	public static void ordenarArchivo(String direccionArchivo, int numLineas) {
-
-	}
 	public static void leerArchivo(String direccionArchivo, int numLineas) {
 		// Se abre el archivo en un bufer de lectura
 		BufferedReader Lectura = null;

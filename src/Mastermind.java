@@ -150,8 +150,6 @@ public class Mastermind {
 	    	WriteCSV.escribirArchivo(nombreUsuario, intentos, "partidas/top5.csv");
 	    }
 
-	
-	
 	in.close();
 		
 	}//fin void nuevoJuego();
@@ -190,16 +188,16 @@ public class Mastermind {
 			}
 
 			// MENU PRINCIPAL
-			String eleccion2 = null;
+			String eleccion2;
 			switch (eleccion1) {
 			case 1:
 				limpiarConsola();
 				nuevoJuego();
-				System.out.println("Presione 1 y enter para volver al menu principal, presione cualquier otra tecla para salir");
-				eleccion2 = in2.next();
-				if (eleccion2=="1") {
+				//No tengo ni idea de porque, pero cuando intento hacer reset aqui me da error, no tiene sentido pls help :'(
+			/*	if(in2.next()!=null) {
 					restart=true;
-				} else 
+					break;
+				} else */
 				break;
 			case 2:
 				
@@ -212,8 +210,10 @@ public class Mastermind {
 				if (in.next().equals("3")) {
 					numLineas = WriteCSV.numLineasArchivo("partidas/top5.csv");
 					ReadCSV.leerArchivo("partidas/top5.csv", numLineas);
+					System.out.println("Recuerda que el numero de la derecha son los intentos. Menos intentos = Mejor resultado");
 					break;
 				} else
+					in.close();
 				restart=true;
 				break;
 			case 4:
@@ -223,6 +223,7 @@ public class Mastermind {
 				limpiarConsola();
 				if (eleccion2!=null) {
 					restart=true;
+					break;
 				} else 
 				break;
 			case 5:
@@ -230,7 +231,7 @@ public class Mastermind {
 				break;
 			//Case para hacer pruebas
 			case 6:
-
+				WriteCSV.ordenarArchivo();
 				break;
 			default:
 				System.err.println("Eleccion no valida, pruebe otra vez.");
@@ -239,8 +240,7 @@ public class Mastermind {
 			}
 			
 		}
-		in2.close();
-		in.close();
+
 	}
 
 }
