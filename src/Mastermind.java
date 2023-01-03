@@ -150,7 +150,6 @@ public class Mastermind {
 	    	WriteCSV.escribirArchivo(nombreUsuario, intentos, "partidas/top5.csv");
 	    }
 
-	in.close();
 		
 	}//fin void nuevoJuego();
 	
@@ -193,11 +192,7 @@ public class Mastermind {
 			case 1:
 				limpiarConsola();
 				nuevoJuego();
-				//No tengo ni idea de porque, pero cuando intento hacer reset aqui me da error, no tiene sentido pls help :'(
-			/*	if(in2.next()!=null) {
-					restart=true;
-					break;
-				} else */
+				restart=true;
 				break;
 			case 2:
 				
