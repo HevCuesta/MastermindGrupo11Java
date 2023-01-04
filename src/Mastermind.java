@@ -37,8 +37,8 @@ public class Mastermind {
 				+ " Para intentar adivinar la contraseña, deberá escribir una secuencia de 5 letras, y cada una corresponde a un color: \r\n"
 				+ " R = Rojo    C = Cian    V = Verde    A = Amarillo    Z = AZUL    M = Morado    B = BLANCO \r\n"
 				+ "Por ejemplo, si escribo RVVAZ estaria intentado adivinar Rojo, Verde, Verde, Amarillo, Azul \r\n"
-				+ "En caso de haber acertado tanto la posición como el color, el hueco se rellenará con el simbolo: " + CORRECTO + RESET + "\r\n"
-				+ "En caso de haber acertado el color pero no la posición, el hueco se rellenará con el simbolo: " + SEMICORRECTO + RESET + "\r\n"
+				+ "En caso de haber acertado tanto la posición como el color, el hueco se rellenará con el simbolo: " + NEGRO + RESET + "\r\n"
+				+ "En caso de haber acertado el color pero no la posición, el hueco se rellenará con el simbolo: " + BLANCO + RESET + "\r\n"
 				+ "Y en caso de no haber acertado ni el color ni la posición el hueco se rellenará con el simbolo: _\r\n"
 				+ "Para volver al menu principal ponga cualquier caracter y presione enter.");
 		
@@ -112,25 +112,58 @@ public class Mastermind {
 				 	if (combinacion[i] == combinacionSecreta[i]) resultado[i] = 'N';	
 			}
 		
-			for (int i = 0; i < 5; i++) {
-				switch(resultado[i]) {
-					case 'B': System.out.print(SEMICORRECTO + RESET); break;
-					case 'N': System.out.print(CORRECTO + RESET); break; 
-					default: System.out.print('_');
-				}
-			}
+			
 		
 		return resultado;
 	}//fin función analizarRespuesta
+	
+	public static void pintarTablero(char tablero[][], int intentos, char resultadoTablero[][]) {
+		
+		for (int q = 0; q < intentos+1; q++) {
+		for (int i = 0; i < 5; i++) {
+			
+			 switch(tablero[q][i]) {
+			 
+			 	case 'C': System.out.print(CYAN + RESET); break; //cyan
+				case 'R': System.out.print(ROJO + RESET); break; //rojo
+				case 'V': System.out.print(VERDE + RESET); break;//verde
+				case 'A': System.out.print(AMARILLO + RESET); break; //amarillo
+				case 'Z': System.out.print(AZUL + RESET); break; //azul
+				case 'M': System.out.print(MORADO + RESET); break; //morado
+				case 'B': System.out.print(BLANCO + RESET); break; //blanco 
+			 }
+	     	
+		}
+		
+		System.out.print(' ');
+			for (int i = 0; i < 5; i++) switch(resultadoTablero[q][i]) {
+				case 'B': System.out.print(BLANCO + RESET); break;
+				case 'N': System.out.print(NEGRO + RESET); break; 
+				default: System.out.print('_');
+			}
+		
+		
+		System.out.print('\n');
+		}	
+
+	}
 	
 	
 	public static void nuevoJuego() {
 		Scanner in = new Scanner (System.in);
 		
+		String nombreUsuario;
+		
+		
+		char tablero[][] = new char [10][5];
 		char combinacionSecreta[] = new char[5];	
 		char combinacion[] = new char[5];
 		char resultado[] = new char [5];
 		int intentos = 0;
+		char guardarPartida = 'ඞ';
+		boolean aux = true; //para posibles errores de caracteres no correspondientes.
+		
+		char resultadoTablero[][] = new char[10][5];
 		
 		for(int i = 0; i < combinacionSecreta.length; i++) combinacionSecreta[i] = generarCombinacion(i);
 		
@@ -138,17 +171,65 @@ public class Mastermind {
 			System.out.println("Introduce la combinación de colores a adivinar:");
 			combinacion = in.next().toUpperCase().toCharArray();
 			
+			
+		
+		
 			if(validarRespuesta(combinacion) == true) {
-				resultado = analizarRespuesta(combinacion, combinacionSecreta);
+				for(int i = 0; i < 5; i++)	tablero[intentos][i] = combinacion[i];
+						
+				resultado = analizarRespuesta(combinacion, combinacionSecreta);	
+				
+			
+				for(int i = 0; i < 5; i++)	resultadoTablero[intentos][i] = resultado[i]; //conversión de las fichas blancas y negras a una matriz para mayor facilidad.
+					
+				intentos++;
+				pintarTablero(tablero, intentos, resultadoTablero);
+				
+				
 			}
-			intentos++;
+			
 			WriteCSV.escribirArchivoGuardar(resultado ,intentos, "partidas/PartidaGuardada.csv"); 
 	   } while(posibleAcierto(resultado) == false);
-	    if (posibleAcierto(resultado) == true) {
-	    	System.out.println("\r\n¡¡Has acertado!! Introduce tu nombre a continuación: ");
-	    	String nombreUsuario = in.next();
+	
+	    	
+	    	System.out.println("\r\n¡¡Has acertado!! ¿Quieres guardar la partida? (s/n) ");
+	    	
+	    	
+	    do {	
+	    	
+	    	aux = false;
+	    	try {
+	    		
+	    		guardarPartida = in.next().charAt(0);
+	    		
+	    		
+	    	} catch(Exception InputMismatchException) {
+	    		
+	    		aux = true;
+	    		System.out.println("Por favor introduzca2" + "'s'" + "o" + "'n'" );
+	    	}
+	    	
+	    	
+	    	switch (guardarPartida) {
+	    	
+	    	case 's': 
+	    	System.out.println("Introduzca su nombre:");
+	    	nombreUsuario = in.next().toLowerCase();
 	    	WriteCSV.escribirArchivo(nombreUsuario, intentos, "partidas/top5.csv");
-	    }
+	    	break;
+	    	
+	    	case 'n':
+	    	break;
+	    	
+	    	default:
+	    	aux = true;	
+	    	System.out.println("Por favor introduzca2" + "'s'" + "o" + "'n'");
+	    	}
+	    	
+	    	
+	    }while (aux);
+	    
+	    
 
 		
 	}//fin void nuevoJuego();
