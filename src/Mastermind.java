@@ -74,7 +74,7 @@ public class Mastermind {
 		
 	}//fin función posibleAcierto.
 	
-	
+	//Funcion para validar la repsuesta propuesta por el usuario
 	public static boolean validarRespuesta (char combinacion[]) {
 		
 	boolean combinacionValida = false; //bool para asegurarse de que las combinaciones introducidas sean válidas.
@@ -97,7 +97,7 @@ public class Mastermind {
 		return combinacionValida;
 	}//fin función validarResuesta.
 	
-	
+	//Funcion para analizar la respuesta propuesta por el usuario
 	public static char[] analizarRespuesta (char combinacion[], char combinacionSecreta[]){
 		char resultado[] = new char [5];
 		
@@ -117,6 +117,7 @@ public class Mastermind {
 		return resultado;
 	}//fin función analizarRespuesta
 	
+
 	public static void pintarTablero(char tablero[][], int intentos, char resultadoTablero[][]) {
 		
 		for (int q = 0; q < intentos+1; q++) {
@@ -148,8 +149,28 @@ public class Mastermind {
 
 	}
 	
+
+	//Funcion para guardar en un array las letras adivinadas, que luego se guardarán en el archivo PartidaGuardada.csv
+	public static char[] letrasAdivinadas (char combinacion[], char combinacionSecreta[]) {
+		char adivinadas[] = new char [5];
+		
+		for (int i = 0; i < combinacionSecreta.length; i++) {
+			 for (int o = 0; o < combinacionSecreta.length; o++) {
+				 if (combinacion[i] == combinacionSecreta[o]) {
+					 adivinadas[i] = '⍻';
+					 o = 5;
+				 } else adivinadas [i] = '_';	
+			  }
+			 
+			 	if (combinacion[i] == combinacionSecreta[i]) adivinadas[i] = combinacionSecreta[i];	
+		}
+		return adivinadas;
+	}
+
 	
+	//Funcion para iniciar una nueva partida.
 	public static void nuevoJuego() {
+		//ESTE SCANNER, NO SE PUEDE CERRAR DE NINGUNA MANERA, DA IGUAL COMO LO INTENTEMOS, NO PODEMOS
 		Scanner in = new Scanner (System.in);
 		
 		String nombreUsuario;
@@ -187,8 +208,13 @@ public class Mastermind {
 				
 				
 			}
+
 			
 			WriteCSV.escribirArchivoGuardar(resultado ,intentos, "partidas/PartidaGuardada.csv"); 
+
+			intentos++;
+			WriteCSV.escribirArchivoGuardar(letrasAdivinadas(combinacion, combinacionSecreta),intentos, "partidas/PartidaGuardada.csv"); 
+
 	   } while(posibleAcierto(resultado) == false);
 	
 	    	
@@ -216,6 +242,7 @@ public class Mastermind {
 	    	System.out.println("Introduzca su nombre:");
 	    	nombreUsuario = in.next().toLowerCase();
 	    	WriteCSV.escribirArchivo(nombreUsuario, intentos, "partidas/top5.csv");
+
 	    	break;
 	    	
 	    	case 'n':
@@ -232,14 +259,15 @@ public class Mastermind {
 	    
 
 		
-	}//fin void nuevoJuego();
+
+	    }
+
+	//fin void nuevoJuego();
 	
-	
-	
+
 	public static void main(String[] args) {
 		// Para el input del usuario
 		Scanner in = new Scanner(System.in);
-		Scanner in2 = new Scanner(System.in);
 		
 		//Bucle while para volver a comenzar cuando se termine una partida
 		boolean restart = true;
@@ -284,7 +312,7 @@ public class Mastermind {
 				ReadCSV.leerArchivo("partidas/top5.csv", numLineas);
 				System.out.println("Presione 3 y enter otra vez si quiere ver todos los resultados, presione cualquier otra tecla para volver al menu.");
 				if (in.next().equals("3")) {
-					numLineas = WriteCSV.numLineasArchivo("partidas/top5.csv");
+					numLineas = ReadCSV.numLineasArchivo("partidas/top5.csv");
 					ReadCSV.leerArchivo("partidas/top5.csv", numLineas);
 					System.out.println("Recuerda que el numero de la derecha son los intentos. Menos intentos = Mejor resultado");
 					break;
@@ -307,7 +335,7 @@ public class Mastermind {
 				break;
 			//Case para hacer pruebas
 			case 6:
-				WriteCSV.ordenarArchivo();
+				WriteCSV.limpiarArchivo("partidas/PartidaGuardada.csv");
 				break;
 			default:
 				System.err.println("Eleccion no valida, pruebe otra vez.");
