@@ -8,7 +8,7 @@ import java.io.IOException;
 public class ReadCSV {
 	public static final String DELIMITADOR = ",";
 			
-	
+	//Funcion para leer un archivo, en este caso el de top5
 	public static void leerArchivo(String direccionArchivo, int numLineas) {
 		// Se abre el archivo en un bufer de lectura
 		BufferedReader Lectura = null;
@@ -51,6 +51,18 @@ public class ReadCSV {
 		  }
 		 }
 
+	}
+	
+	//Devuelve el numero de lineas de un archivo
+	public static int numLineasArchivo(String direccionArchivo) {
+		//Se cuentan el numero de lineas para no hacer print a mas de cinco.
+		int lineas = 0;
+		try (BufferedReader reader = new BufferedReader(new FileReader(direccionArchivo))) {
+			 while (reader.readLine() != null) lineas++;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return lineas;
 	}
 	
 	
