@@ -35,6 +35,7 @@ public class WriteCSV {
 		// String que se quiere escribir en el archivo
 		String guessStr = String.valueOf(guess);
 		try {
+
 			FileWriter fileWriter = new FileWriter(direccionArchivo, true); 														
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 			
@@ -46,6 +47,7 @@ public class WriteCSV {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	
 	}
 
 	//Funcion que escribirá al archivo top5 de clasificacion

@@ -39,7 +39,7 @@ public class Mastermind {
 				+ "Por ejemplo, si escribo RVVAZ estaria intentado adivinar Rojo, Verde, Verde, Amarillo, Azul \r\n"
 				+ "En caso de haber acertado tanto la posición como el color, el hueco se rellenará con el simbolo: " + NEGRO + RESET + "\r\n"
 				+ "En caso de haber acertado el color pero no la posición, el hueco se rellenará con el simbolo: " + BLANCO + RESET + "\r\n"
-				+ "Y en caso de no haber acertado ni el color ni la posición el hueco se rellenará con el simbolo: _\r\n"
+				+ "Y en caso de no haber acertado ni el color ni la posición el hueco se rellenará con el simbolo: X\r\n"
 				+ "Para volver al menu principal ponga cualquier caracter y presione enter.");
 		
 				
@@ -140,11 +140,11 @@ public class Mastermind {
 			for (int i = 0; i < 5; i++) switch(resultadoTablero[q][i]) {
 				case 'B': System.out.print(BLANCO + RESET); break;
 				case 'N': System.out.print(NEGRO + RESET); break; 
-				default: System.out.print('_');
+				case '_': System.out.print("X"); break;
+				
 			}
 		
-		
-		System.out.print('\n');
+		System.out.println();
 		}	
 
 	}
@@ -152,20 +152,26 @@ public class Mastermind {
 
 	//Funcion para guardar en un array las letras adivinadas, que luego se guardarán en el archivo PartidaGuardada.csv
 	public static char[] letrasAdivinadas (char combinacion[], char combinacionSecreta[]) {
-		char adivinadas[] = new char [5];
-		
+		char adivinadas[] = new char [combinacionSecreta.length];
+		try {
 		for (int i = 0; i < combinacionSecreta.length; i++) {
 			 for (int o = 0; o < combinacionSecreta.length; o++) {
 				 if (combinacion[i] == combinacionSecreta[o]) {
-					 adivinadas[i] = '⍻';
-					 o = 5;
+					 adivinadas[i] = 'B';
+					 o = combinacionSecreta.length;
 				 } else adivinadas [i] = '_';	
 			  }
 			 
 			 	if (combinacion[i] == combinacionSecreta[i]) adivinadas[i] = combinacionSecreta[i];	
 		}
+		} catch (Exception e) {
+			System.out.print("");
+			
+		}
 		return adivinadas;
-	}
+		
+		}
+		
 
 	
 	//Funcion para iniciar una nueva partida.
@@ -176,19 +182,20 @@ public class Mastermind {
 		String nombreUsuario;
 		
 		
-		char tablero[][] = new char [10][5];
+		char tablero[][] = new char [50][5];
 		char combinacionSecreta[] = new char[5];	
 		char combinacion[] = new char[5];
 		char resultado[] = new char [5];
 		int intentos = 0;
-		char guardarPartida = 'ඞ';
+		char guardarPartida = '-';
 		boolean aux = true; //para posibles errores de caracteres no correspondientes.
 		
-		char resultadoTablero[][] = new char[10][5];
+		char resultadoTablero[][] = new char[50][5];
 		
 		for(int i = 0; i < combinacionSecreta.length; i++) combinacionSecreta[i] = generarCombinacion(i);
 		
 	    do {	
+	    	limpiarConsola();
 			System.out.println("Introduce la combinación de colores a adivinar:");
 			combinacion = in.next().toUpperCase().toCharArray();
 			
@@ -241,7 +248,7 @@ public class Mastermind {
 	    	case 's': 
 	    	System.out.println("Introduzca su nombre:");
 	    	nombreUsuario = in.next().toLowerCase();
-	    	WriteCSV.escribirArchivo(nombreUsuario, intentos, "partidas/top5.csv");
+	    	WriteCSV.escribirArchivo(nombreUsuario, intentos/2, "partidas/top5.csv");
 
 	    	break;
 	    	
