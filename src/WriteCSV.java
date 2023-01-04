@@ -10,7 +10,27 @@ import java.util.List;
 
 public class WriteCSV {
 	public static final String DELIMITADOR = ",";
+	
+	
+	//Funcion para limpiar el archivo de la partida guardada, ya que solo se puede guardar la partida anterior
+	public static void limpiarArchivo(String direccionArchivo) {
 
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(direccionArchivo));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(direccionArchivo));
+			String linea = null;
+			while ((linea = reader.readLine()) != null) {
+				writer.write(linea);
+				writer.flush();
+				writer.close();
+				reader.close();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//Funcion para escribir el archivo que guardará la partida
 	public static void escribirArchivoGuardar(char[] guess, int intentos, String direccionArchivo) {
 		// String que se quiere escribir en el archivo
 		String guessStr = String.valueOf(guess);
@@ -20,7 +40,7 @@ public class WriteCSV {
 			
 			bufferedWriter.write(guessStr + DELIMITADOR + intentos);
 			bufferedWriter.newLine();
-
+			
 			bufferedWriter.flush();
 			bufferedWriter.close();
 		} catch (IOException e) {
@@ -28,7 +48,7 @@ public class WriteCSV {
 		}
 	}
 
-
+	//Funcion que escribirá al archivo top5 de clasificacion
 	public static void escribirArchivo(String nombreUsuario, int intentos, String direccionArchivo) {
 		// String que se quiere escribir en el archivo
 		String linea = nombreUsuario.toUpperCase() + DELIMITADOR + " " + intentos;
@@ -48,19 +68,10 @@ public class WriteCSV {
 		}
 	}
 	
-	
-	public static int numLineasArchivo(String direccionArchivo) {
-		//Se cuentan el numero de lineas para no hacer print a mas de cinco.
-		int lineas = 0;
-		try (BufferedReader reader = new BufferedReader(new FileReader(direccionArchivo))) {
-			 while (reader.readLine() != null) lineas++;
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return lineas;
-	}
+
 	
 	
+	//Funcion para ordenar el archivo top5, de tal manera que las partidas con menores intentos se pongan en las primeras lineas
 	public static void ordenarArchivo() {
 		try {
 			//Mete cada linea en una lista de strings
