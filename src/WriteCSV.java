@@ -11,6 +11,17 @@ import java.util.List;
 public class WriteCSV {
 	public static final String DELIMITADOR = ",";
 	
+	// Se declaran las variables de todos los colores que se usarán para el juego
+    public static final String CYAN = "\033[0;36m○";
+    public static final String ROJO = "\033[0;31m○";
+    public static final String VERDE = "\033[0;32m○";
+    public static final String AMARILLO = "\033[0;33m○";
+    public static final String AZUL = "\033[0;34m○";  
+    public static final String MORADO = "\033[0;35m○";
+    public static final String BLANCO = "\033[0;37m○";
+    public static final String NEGRO = "\u001B[30m○";
+    public static final String RESET = "\033[0m";
+	
 	
 	//Funcion para limpiar el archivo de la partida guardada, ya que solo se puede guardar la partida anterior
 	public static void limpiarArchivo(String direccionArchivo) {
@@ -77,6 +88,7 @@ public class WriteCSV {
 	
 	//Funcion para ordenar el archivo top5, de tal manera que las partidas con menores intentos se pongan en las primeras lineas
 	public static void ordenarArchivo() {
+
 		try {
 			//Mete cada linea en una lista de strings
 			List<String> lineas = new ArrayList<>();
@@ -106,4 +118,46 @@ public class WriteCSV {
 			System.err.println(ex);
 		}
 	}
-}
+	
+	public static void guardarTablero(char tablero[][], int intentos, char resultadoTablero[][], String direccionArchivo) {
+
+		try {
+		FileWriter fileWriter = new FileWriter(direccionArchivo); 														
+		BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+		for (int q = 0; q < intentos+1; q++) {
+		for (int i = 0; i < 5; i++) {
+			
+			 switch(tablero[q][i]) {
+			 
+			 	case 'C': bufferedWriter.write(CYAN + RESET); break; //cyan
+				case 'R': bufferedWriter.write(ROJO + RESET); break; //rojo
+				case 'V':bufferedWriter.write(VERDE + RESET); break;//verde
+				case 'A': bufferedWriter.write(AMARILLO + RESET); break; //amarillo
+				case 'Z': bufferedWriter.write(AZUL + RESET); break; //azul
+				case 'M': bufferedWriter.write(MORADO + RESET); break; //morado
+				case 'B': bufferedWriter.write(BLANCO + RESET); break; //blanco 
+			 }
+	     	
+		}
+		
+		bufferedWriter.write(' ');
+			for (int i = 0; i < 5; i++) switch(resultadoTablero[q][i]) {
+				case 'B': bufferedWriter.write(BLANCO + RESET); break;
+				case 'N': bufferedWriter.write(NEGRO + RESET); break; 
+				case '_': bufferedWriter.write("X"); break;
+				
+			}
+			bufferedWriter.newLine();
+		}
+
+		bufferedWriter.close();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		
+		}
+		System.out.println();
+		}
+
+	}
+
