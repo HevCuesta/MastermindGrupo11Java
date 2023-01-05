@@ -117,7 +117,7 @@ public class Mastermind {
 		return resultado;
 	}//fin función analizarRespuesta
 	
-
+	//Funcion para pintar el tablero de juego
 	public static void pintarTablero(char tablero[][], int intentos, char resultadoTablero[][]) {
 		
 		for (int q = 0; q < intentos+1; q++) {
@@ -155,14 +155,11 @@ public class Mastermind {
 		char adivinadas[] = new char [combinacionSecreta.length];
 		try {
 		for (int i = 0; i < combinacionSecreta.length; i++) {
-			 for (int o = 0; o < combinacionSecreta.length; o++) {
-				 if (combinacion[i] == combinacionSecreta[o]) {
-					 adivinadas[i] = 'B';
-					 o = combinacionSecreta.length;
+				 if (combinacionSecreta[i] == combinacion[i]) {
+					 adivinadas[i] = combinacionSecreta[i];
 				 } else adivinadas [i] = '_';	
-			  }
+			  
 			 
-			 	if (combinacion[i] == combinacionSecreta[i]) adivinadas[i] = combinacionSecreta[i];	
 		}
 		} catch (Exception e) {
 			System.out.print("");
@@ -194,14 +191,16 @@ public class Mastermind {
 		
 		for(int i = 0; i < combinacionSecreta.length; i++) combinacionSecreta[i] = generarCombinacion(i);
 		
+		//Limpiar archivo de guardado para sobreescribir la partida anterior
+		WriteCSV.limpiarArchivo("partidas/PartidaGuardada.csv");
+		
 	    do {	
 	    	limpiarConsola();
 			System.out.println("Introduce la combinación de colores a adivinar:");
 			combinacion = in.next().toUpperCase().toCharArray();
 			
 			
-		
-		
+			
 			if(validarRespuesta(combinacion) == true) {
 				for(int i = 0; i < 5; i++)	tablero[intentos][i] = combinacion[i];
 						
@@ -210,58 +209,51 @@ public class Mastermind {
 			
 				for(int i = 0; i < 5; i++)	resultadoTablero[intentos][i] = resultado[i]; //conversión de las fichas blancas y negras a una matriz para mayor facilidad.
 					
-				intentos++;
-				pintarTablero(tablero, intentos, resultadoTablero);
-				
-				
+				pintarTablero(tablero, intentos, resultadoTablero);	
 			}
 
-			
-			WriteCSV.escribirArchivoGuardar(resultado ,intentos, "partidas/PartidaGuardada.csv"); 
+
 
 			intentos++;
-			WriteCSV.escribirArchivoGuardar(letrasAdivinadas(combinacion, combinacionSecreta),intentos, "partidas/PartidaGuardada.csv"); 
+			WriteCSV.limpiarArchivo("partidas/PartidaGuardada.csv");
+			WriteCSV.escribirArchivoGuardar(combinacionSecreta, intentos, "partidas/PartidaGuardada.csv"); 
 
 	   } while(posibleAcierto(resultado) == false);
 	
 	    	
 	    	System.out.println("\r\n¡¡Has acertado!! ¿Quieres guardar la partida? (s/n) ");
 	    	
-	    	
-	    do {	
-	    	
-	    	aux = false;
-	    	try {
-	    		
-	    		guardarPartida = in.next().charAt(0);
-	    		
-	    		
-	    	} catch(Exception InputMismatchException) {
-	    		
-	    		aux = true;
-	    		System.out.println("Por favor introduzca2" + "'s'" + "o" + "'n'" );
-	    	}
-	    	
-	    	
-	    	switch (guardarPartida) {
-	    	
-	    	case 's': 
-	    	System.out.println("Introduzca su nombre:");
-	    	nombreUsuario = in.next().toLowerCase();
-	    	WriteCSV.escribirArchivo(nombreUsuario, intentos/2, "partidas/top5.csv");
+			do {
 
-	    	break;
-	    	
-	    	case 'n':
-	    	break;
-	    	
-	    	default:
-	    	aux = true;	
-	    	System.out.println("Por favor introduzca2" + "'s'" + "o" + "'n'");
-	    	}
-	    	
-	    	
-	    }while (aux);
+				aux = false;
+				try {
+
+					guardarPartida = in.next().charAt(0);
+
+				} catch (Exception InputMismatchException) {
+
+					aux = true;
+					System.out.println("Por favor introduzca2" + "'s'" + "o" + "'n'");
+				}
+
+				switch (guardarPartida) {
+
+				case 's':
+					System.out.println("Introduzca su nombre:");
+					nombreUsuario = in.next().toLowerCase();
+					WriteCSV.escribirArchivo(nombreUsuario, intentos / 2, "partidas/top5.csv");
+
+					break;
+
+				case 'n':
+					break;
+
+				default:
+					aux = true;
+					System.out.println("Por favor introduzca2" + "'s'" + "o" + "'n'");
+				}
+
+			} while (aux);
 	    
 	    
 
@@ -339,10 +331,6 @@ public class Mastermind {
 				break;
 			case 5:
 
-				break;
-			//Case para hacer pruebas
-			case 6:
-				WriteCSV.limpiarArchivo("partidas/PartidaGuardada.csv");
 				break;
 			default:
 				System.err.println("Eleccion no valida, pruebe otra vez.");

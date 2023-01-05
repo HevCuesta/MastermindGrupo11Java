@@ -7,7 +7,12 @@ import java.io.IOException;
 
 public class ReadCSV {
 	public static final String DELIMITADOR = ",";
-			
+	
+	public static void leerPartidaGuardada (String direccionArchivo) {
+		
+	}
+	
+	
 	//Funcion para leer un archivo, en este caso el de top5
 	public static void leerArchivo(String direccionArchivo, int numLineas) {
 		// Se abre el archivo en un bufer de lectura

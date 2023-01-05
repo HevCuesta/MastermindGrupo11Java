@@ -30,16 +30,18 @@ public class WriteCSV {
 		}
 	}
 	
-	//Funcion para escribir el archivo que guardará la partida
-	public static void escribirArchivoGuardar(char[] guess, int intentos, String direccionArchivo) {
-		// String que se quiere escribir en el archivo
-		String guessStr = String.valueOf(guess);
-		try {
 
+	
+	//Funcion para escribir el archivo que guardará la partida
+	public static void escribirArchivoGuardar(char[] combinacionSecreta, int intentos, String direccionArchivo) {
+		// String que se quiere escribir en el archivo
+		String secretoStr = String.valueOf(combinacionSecreta);
+		try {
+			
 			FileWriter fileWriter = new FileWriter(direccionArchivo, true); 														
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 			
-			bufferedWriter.write(guessStr + DELIMITADOR + intentos);
+			bufferedWriter.write(secretoStr + DELIMITADOR + intentos);
 			bufferedWriter.newLine();
 			
 			bufferedWriter.flush();
