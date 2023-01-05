@@ -76,7 +76,7 @@ public class ReadCSV {
 					 
 					 // Volver a leer otra línea del fichero para cerrar el while
 					 linea = Lectura.readLine();
-					 Lectura.close();
+					 
 				 }
 			 }
 		 } 
