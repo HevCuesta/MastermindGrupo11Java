@@ -92,7 +92,7 @@ public class WriteCSV {
 		try {
 			//Mete cada linea en una lista de strings
 			List<String> lineas = new ArrayList<>();
-			try (BufferedReader reader = new BufferedReader(new FileReader("partidas/top5.csv"))) {
+			try (BufferedReader reader = new BufferedReader(new FileReader("partidas/Top5.csv"))) {
 				String linea;
 				while ((linea = reader.readLine()) != null) {
 					lineas.add(linea);
@@ -109,7 +109,7 @@ public class WriteCSV {
 			});
 
 			// Print the sorted list of strings
-			try (PrintWriter writer = new PrintWriter("partidas/top5.csv")) {
+			try (PrintWriter writer = new PrintWriter("partidas/Top5.csv")) {
 				for (String linea : lineas) {
 					writer.println(linea);
 				}
