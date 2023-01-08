@@ -63,7 +63,7 @@ public class WriteCSV {
 		// String que se quiere escribir en el archivo
 		String secretoStr = String.valueOf(combinacionSecreta);
 		
-		System.out.println(secretoStr);
+		//System.out.println(secretoStr);
 		
 		try {
 			
@@ -98,6 +98,7 @@ public class WriteCSV {
 			FileWriter fileWriter = new FileWriter(direccionArchivo, true); 														
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 			
+			limpiarArchivo(direccionArchivo);
 			bufferedWriter.write(secretoStr + DELIMITADOR + intentos); 
 			bufferedWriter.newLine();
 			
@@ -144,7 +145,7 @@ public class WriteCSV {
 		try {
 			//Mete cada linea en una lista de strings
 			List<String> lineas = new ArrayList<>();
-			try (BufferedReader reader = new BufferedReader(new FileReader("partidas/Top5.csv"))) {
+			try (BufferedReader reader = new BufferedReader(new FileReader("partidas/Usuarios/Top5.csv"))) {
 				String linea;
 				while ((linea = reader.readLine()) != null) {
 					lineas.add(linea);
@@ -161,7 +162,7 @@ public class WriteCSV {
 			});
 
 			// Print the sorted list of strings
-			try (PrintWriter writer = new PrintWriter("partidas/Top5.csv")) {
+			try (PrintWriter writer = new PrintWriter("partidas/Usuarios/Top5.csv")) {
 				for (String linea : lineas) {
 					writer.println(linea);
 				}
@@ -178,12 +179,12 @@ public class WriteCSV {
 	*@param resultadoTablero Parte del tablero que representa los resultado
 	*@param direccionArchivo Direccion del archivo donde guardar
 	*/
-	public static void guardarTablero(char tablero[][], int intentos, char resultadoTablero[][], String direccionArchivo) {
-
+	public static void guardarTablero(char tablero[][], int intentos, char resultadoTablero[][], String direccionArchivo, boolean guardado) {
+		if (guardado == false) {
 		try {
 		FileWriter fileWriter = new FileWriter(direccionArchivo); 														
 		BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
+		
 		for (int q = 0; q < intentos+1; q++) {
 		for (int i = 0; i < 5; i++) {
 			
@@ -191,7 +192,7 @@ public class WriteCSV {
 			 
 			 	case 'C': bufferedWriter.write(CYAN + RESET); break; //cyan
 				case 'R': bufferedWriter.write(ROJO + RESET); break; //rojo
-				case 'V':bufferedWriter.write(VERDE + RESET); break;//verde
+				case 'V': bufferedWriter.write(VERDE + RESET); break;//verde
 				case 'A': bufferedWriter.write(AMARILLO + RESET); break; //amarillo
 				case 'Z': bufferedWriter.write(AZUL + RESET); break; //azul
 				case 'M': bufferedWriter.write(MORADO + RESET); break; //morado
@@ -217,6 +218,54 @@ public class WriteCSV {
 		}
 		System.out.println();
 		}
+		else {
+			try {
+				FileWriter fileWriter = new FileWriter(direccionArchivo, true); 									
+				BufferedReader reader = new BufferedReader(new FileReader(direccionArchivo));
+				BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+				
+					for (int q = 0; q < intentos+1; q++) {
+						for (int i = 0; i < 5; i++) {
+							
+							 switch(tablero[q][i]) {
+							 
+							 	case 'C': bufferedWriter.write(CYAN + RESET); break; //cyan
+								case 'R': bufferedWriter.write(ROJO + RESET); break; //rojo
+								case 'V': bufferedWriter.write(VERDE + RESET); break;//verde
+								case 'A': bufferedWriter.write(AMARILLO + RESET); break; //amarillo
+								case 'Z': bufferedWriter.write(AZUL + RESET); break; //azul
+								case 'M': bufferedWriter.write(MORADO + RESET); break; //morado
+								case 'B': bufferedWriter.write(BLANCO + RESET); break; //blanco 
+							 }
+					     	
+						}
+						
+						bufferedWriter.write(' ');
+							for (int i = 0; i < 5; i++) switch(resultadoTablero[q][i]) {
+								case 'B': bufferedWriter.write(BLANCO + RESET); break;
+								case 'N': bufferedWriter.write(NEGRO + RESET); break; 
+								case '_': bufferedWriter.write("X"); break;
+								
+							}
+							bufferedWriter.newLine();
+						}
+
+						bufferedWriter.close();
+						reader.close();
+			} catch (IOException ex) {
+								ex.printStackTrace();
+							
+							}
+						}
+						System.out.println();
+
+				}
+
+				
+			
+		
+	
+		
 
 	
 	public static boolean nuevaPartidaUsuario(String Usuario) {

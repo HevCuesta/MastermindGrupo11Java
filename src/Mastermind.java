@@ -254,7 +254,7 @@ public class Mastermind {
 
 			intentos++;
 			WriteCSV.limpiarArchivo("partidas/PartidaGuardada.csv");
-			WriteCSV.guardarTablero(tablero, intentos, resultadoTablero, "partidas/Usuarios/" + nombreUsuario + "/TableroGuardado.csv");
+			WriteCSV.guardarTablero(tablero, intentos, resultadoTablero, "partidas/Usuarios/" + nombreUsuario + "/TableroGuardado.csv", false);
 			WriteCSV.escribirArchivoGuardar(combinacionSecreta, intentos, "partidas/Usuarios/" + nombreUsuario + "/PartidaGuardada.csv"); 
 
 	   } while(posibleAcierto(resultado) == false);
@@ -277,13 +277,11 @@ public class Mastermind {
 
 				switch (guardarPartida) {
 				case 's':
-					System.out.println("Introduzca su nombre:");
-					nombreUsuario = in.next().toLowerCase();
-					WriteCSV.escribirArchivo(nombreUsuario, intentos, "partidas/Top5.csv");
+					WriteCSV.escribirArchivo(nombreUsuario, intentos, "partidas/Usuarios/Top5.csv");
+					System.out.println("Partida guardada correctamente.");
 					break;
 				case 'n':
 					WriteCSV.borrarPartidaUsuario(nombreUsuario);
-					
 					break;
 				default:
 					aux = true;
@@ -366,6 +364,7 @@ public class Mastermind {
 
 			intentos++;
 			WriteCSV.limpiarArchivo("partidas/Usuarios/"+ usuario +"/PartidaGuardada.csv");
+			WriteCSV.guardarTablero(tablero, intentos, resultadoTablero, "partidas/Usuarios/" + usuario + "/TableroGuardado.csv", true);
 			WriteCSV.escribirArchivoGuardar(combinacionSecreta, intentos+intentosGuardados, "partidas/Usuarios/"+ usuario +"/PartidaGuardada.csv"); 
 
 			}else salir = true; 
@@ -391,7 +390,7 @@ public class Mastermind {
 				switch (guardarPartida) {
 				case 's':
 					
-					WriteCSV.escribirArchivo(usuario, intentos+intentosGuardados, "partidas/Top5.csv");
+					WriteCSV.escribirArchivo(usuario, intentos+intentosGuardados, "partidas/Usuarios/Top5.csv");
 					break;
 				case 'n':
 					break;
@@ -457,13 +456,14 @@ public class Mastermind {
 			case 3:
 				limpiarConsola();
 				int numLineas = 5;
-				ReadCSV.leerArchivo("partidas/Top5.csv", numLineas);
+				ReadCSV.leerArchivo("partidas/Usuarios/Top5.csv", numLineas);
 				System.out.println("Presione 3 y enter otra vez si quiere ver todos los resultados, presione cualquier otra tecla para volver al menu.");
 				if (in.next().equals("3")) {
-					numLineas = ReadCSV.numLineasArchivo("partidas/Top5.csv");
-					ReadCSV.leerArchivo("partidas/Top5.csv", numLineas);
+					numLineas = ReadCSV.numLineasArchivo("partidas/Usuarios/Top5.csv");
+					ReadCSV.leerArchivo("partidas/Usuarios/Top5.csv", numLineas);
 					System.out.println("Recuerda que el numero de la derecha son los intentos. Menos intentos = Mejor resultado");
 					break;
+					
 				} else
 					in.close();
 				restart=true;
