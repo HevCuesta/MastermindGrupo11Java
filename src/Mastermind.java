@@ -363,15 +363,16 @@ public class Mastermind {
 			}
 
 			intentos++;
-			WriteCSV.limpiarArchivo("partidas/Usuarios/"+ usuario +"/PartidaGuardada.csv");
-			WriteCSV.guardarTablero(tablero, intentos, resultadoTablero, "partidas/Usuarios/" + usuario + "/TableroGuardado.csv", true);
+
+			
 			WriteCSV.escribirArchivoGuardar(combinacionSecreta, intentos+intentosGuardados, "partidas/Usuarios/"+ usuario +"/PartidaGuardada.csv"); 
 
 			}else salir = true; 
 			 
 	   } while(posibleAcierto(resultado) == false && salir == false);
 	
-	    	
+	    WriteCSV.guardarTablero(tablero, intentos, resultadoTablero, "partidas/Usuarios/" + usuario + "/TableroGuardado.csv", true);	
+	    
 	    	if (salir == false) { System.out.println("\r\n¡¡Has acertado!! ¿Quieres guardar la partida? (s/n) ");
 	    	
 			do {

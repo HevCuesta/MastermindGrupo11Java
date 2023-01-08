@@ -100,7 +100,7 @@ public class WriteCSV {
 			
 			limpiarArchivo(direccionArchivo);
 			bufferedWriter.write(secretoStr + DELIMITADOR + intentos); 
-			bufferedWriter.newLine();
+			//bufferedWriter.newLine();
 			
 			bufferedWriter.flush();
 			bufferedWriter.close();
@@ -113,7 +113,7 @@ public class WriteCSV {
 	/**
 	*@return Escribe el archivo de top5.csv, escribiend el nombre de usuario y sus intentos
 	*@param nombreUsuario Nombre de usuario introducido
-	*@param intentos Numero de intentos de eses usuario
+	*@param intentos Numero de intentos de ese usuario
 	*@param direccionArchivo Direccion del archivo, en este caso Top5.csv
 	*/
 	public static void escribirArchivo(String nombreUsuario, int intentos, String direccionArchivo) {
@@ -208,7 +208,7 @@ public class WriteCSV {
 				case '_': bufferedWriter.write("X"); break;
 				
 			}
-			bufferedWriter.newLine();
+	//	bufferedWriter.newLine();
 		}
 
 		bufferedWriter.close();
@@ -216,7 +216,7 @@ public class WriteCSV {
 			ex.printStackTrace();
 		
 		}
-		System.out.println();
+		//System.out.println();
 		}
 		else {
 			try {
@@ -257,7 +257,7 @@ public class WriteCSV {
 							
 							}
 						}
-						System.out.println();
+						//System.out.println();
 
 				}
 
