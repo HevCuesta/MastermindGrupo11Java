@@ -1,5 +1,6 @@
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.io.Reader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.BufferedWriter;
@@ -7,7 +8,13 @@ import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.io.File;
 
+
+/**
+*@author JAVIER CHOUZA Y DANIEL CUESTA
+*@version 1.0
+*/
 public class WriteCSV {
 	public static final String DELIMITADOR = ",";
 	
@@ -23,7 +30,10 @@ public class WriteCSV {
     public static final String RESET = "\033[0m";
 	
 	
-	//Funcion para limpiar el archivo de la partida guardada, ya que solo se puede guardar la partida anterior
+	/**
+	*@return Borra todas las lineas del archivo
+	*@param direccionArchivo Direccion del archivo
+	*/
 	public static void limpiarArchivo(String direccionArchivo) {
 
 		try {
@@ -43,16 +53,52 @@ public class WriteCSV {
 	
 
 	
-	//Funcion para escribir el archivo que guardará la partida
+	/**
+	*@return Guarda el archivo con la combinacion secreta y el numero de intentos
+	*@param combinacionSecreta Combinacion secreta a guardar
+	*@param intentos Numero de intentos de la partida
+	*@param direccionArchivo Direccion del archivo a guardar
+	*/
 	public static void escribirArchivoGuardar(char[] combinacionSecreta, int intentos, String direccionArchivo) {
 		// String que se quiere escribir en el archivo
 		String secretoStr = String.valueOf(combinacionSecreta);
+		
+		System.out.println(secretoStr);
+		
 		try {
+			
+			
+		/*	File Dani = new File ("partidas/Usuarios/Dani/TableroGuardado");
+			
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(Dani));
+
+			 String linea;
+			 //numLineas es una variable que permite ver mas resultados
+			 while ((linea = bufferedReader.readLine()) != null) {
+				 // Se lee linea a linea, con las comas como delimitadores de campo en cada linea
+				System.out.print(linea);
+				System.out.print("\n");
+				 
+				 // Volver a leer otra línea del fichero para cerrar el while
+				
+				 
+			 }
+			 bufferedReader.close();
+			
+			
+			
+			
+			
+		
+			*/
+			
+			
+			
 			
 			FileWriter fileWriter = new FileWriter(direccionArchivo, true); 														
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 			
-			bufferedWriter.write(secretoStr + DELIMITADOR + intentos);
+			bufferedWriter.write(secretoStr + DELIMITADOR + intentos); 
 			bufferedWriter.newLine();
 			
 			bufferedWriter.flush();
@@ -63,7 +109,12 @@ public class WriteCSV {
 	
 	}
 
-	//Funcion que escribirá al archivo top5 de clasificacion
+	/**
+	*@return Escribe el archivo de top5.csv, escribiend el nombre de usuario y sus intentos
+	*@param nombreUsuario Nombre de usuario introducido
+	*@param intentos Numero de intentos de eses usuario
+	*@param direccionArchivo Direccion del archivo, en este caso Top5.csv
+	*/
 	public static void escribirArchivo(String nombreUsuario, int intentos, String direccionArchivo) {
 		// String que se quiere escribir en el archivo
 		String linea = nombreUsuario.toUpperCase() + DELIMITADOR + " " + intentos;
@@ -85,8 +136,9 @@ public class WriteCSV {
 	
 
 	
-	
-	//Funcion para ordenar el archivo top5, de tal manera que las partidas con menores intentos se pongan en las primeras lineas
+	/**
+	*@return Ordena el archivo de Top5.csv, haciendo una lista de strings, en el que ordena de menor a mayor la segunda columna, que contiene los intentos de cada usuario
+	*/
 	public static void ordenarArchivo() {
 
 		try {
@@ -119,6 +171,13 @@ public class WriteCSV {
 		}
 	}
 	
+	/**
+	*@return Guarda el tablero en un archivo para 
+	*@param tablero Parte del tablero que representa los intentos
+	*@param intentos Numero de intentos 
+	*@param resultadoTablero Parte del tablero que representa los resultado
+	*@param direccionArchivo Direccion del archivo donde guardar
+	*/
 	public static void guardarTablero(char tablero[][], int intentos, char resultadoTablero[][], String direccionArchivo) {
 
 		try {
@@ -159,5 +218,55 @@ public class WriteCSV {
 		System.out.println();
 		}
 
+	
+	public static boolean nuevaPartidaUsuario(String Usuario) {
+		
+		
+		
+		
+		
+		
+		
+			File directorio = new File("partidas/Usuarios/" + Usuario);
+			
+			
+			if (!directorio.exists()) {}
+	
+			if (directorio.mkdirs()) {
+		                System.out.println("Directorio creado");
+		          
+			return false;
+		                
+			} else {
+		            	System.out.println("Error al crear directorio. Pruebe a introducir otro nombre.");
+		            	return true;
+		            }     
 	}
+
+	public static void buscarPartidaUsuario(String Usuario) {
+		
+		
+		
+		
+	}
+
+	public static void borrarPartidaUsuario(String Usuario) {
+		
+		
+		
+		File directorio = new File("partidas/Usuarios/Paco");
+		
+	if(directorio.isFile())	directorio.delete();
+		
+	else System.out.println("No hay carpeta");
+	
+		if(directorio.delete()) System.out.println("Directorio borrado.");
+		
+	}
+
+
+
+
+
+}
 
