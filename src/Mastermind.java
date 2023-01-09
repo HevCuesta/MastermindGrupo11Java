@@ -209,9 +209,10 @@ public class Mastermind {
 		Scanner in = new Scanner (System.in);
 		
 		String nombreUsuario;
+		
 		System.out.println("Introduzca su nombre de usuario");
 	
-		 nombreUsuario = in.next();
+		 nombreUsuario = in.next().toLowerCase();
 		
 		while(WriteCSV.nuevaPartidaUsuario(nombreUsuario)) nombreUsuario = in.next();
 		
@@ -227,9 +228,7 @@ public class Mastermind {
 		char resultadoTablero[][] = new char[50][5];
 		
 		for(int i = 0; i < combinacionSecreta.length; i++) combinacionSecreta[i] = generarCombinacion(i);
-		
-		//Limpiar archivo de guardado para sobreescribir la partida anterior
-		WriteCSV.limpiarArchivo("partidas/PartidaGuardada.csv");
+
 		
 	    do {	
 	    	limpiarConsola();
@@ -253,7 +252,6 @@ public class Mastermind {
 
 
 			intentos++;
-			WriteCSV.limpiarArchivo("partidas/PartidaGuardada.csv");
 			WriteCSV.guardarTablero(tablero, intentos, resultadoTablero, "partidas/Usuarios/" + nombreUsuario + "/TableroGuardado.csv", false);
 			WriteCSV.escribirArchivoGuardar(combinacionSecreta, intentos, "partidas/Usuarios/" + nombreUsuario + "/PartidaGuardada.csv"); 
 
@@ -298,12 +296,12 @@ public class Mastermind {
 	public static void partidaGuardada(String usuario) {
 		//ESTE SCANNER, NO SE PUEDE CERRAR DE NINGUNA MANERA, DA IGUAL COMO LO INTENTEMOS, NO PODEMOS
 		Scanner in = new Scanner(System.in);
+		String nombreUsuario = usuario.toLowerCase();
+		int intentosGuardados = ReadCSV.intentosPartidaGuardada("partidas/Usuarios/"+ nombreUsuario + "/PartidaGuardada.csv" );
 		
-		int intentosGuardados = ReadCSV.intentosPartidaGuardada("partidas/Usuarios/"+ usuario + "/PartidaGuardada.csv" );
 		
 		
-		
-		char[] combinacionSecretaGuarda = ReadCSV.leerCombinacionGuardada("partidas/Usuarios/"+ usuario + "/PartidaGuardada.csv");
+		char[] combinacionSecretaGuarda = ReadCSV.leerCombinacionGuardada("partidas/Usuarios/"+ nombreUsuario + "/PartidaGuardada.csv");
 
 		
 		
@@ -319,14 +317,13 @@ public class Mastermind {
 		System.out.println("Intentos: " + intentosGuardados);
 		System.out.println("El tablero de tu partida pasada es el siguiente: ");
 		
-		ReadCSV.leerTablero("partidas/Usuarios/"+ usuario + "/TableroGuardado.csv", ReadCSV.numLineasArchivo("partidas/Usuarios/" + usuario + "/TableroGuardado.csv"));
+		ReadCSV.leerTablero("partidas/Usuarios/"+ nombreUsuario + "/TableroGuardado.csv", ReadCSV.numLineasArchivo("partidas/Usuarios/" + nombreUsuario + "/TableroGuardado.csv"));
 		
 		
 		
 		char tablero[][] = new char [50][5];
 		char combinacionSecreta[] = new char [5];
 		for(int i =0; i < 5; i++) {	combinacionSecreta[i] = combinacionSecretaGuarda[i];
-		System.out.print(combinacionSecreta[i]);
 		
 		}
 		
@@ -365,13 +362,13 @@ public class Mastermind {
 			intentos++;
 
 			
-			WriteCSV.escribirArchivoGuardar(combinacionSecreta, intentos+intentosGuardados, "partidas/Usuarios/"+ usuario +"/PartidaGuardada.csv"); 
+			WriteCSV.escribirArchivoGuardar(combinacionSecreta, intentos+intentosGuardados, "partidas/Usuarios/"+ nombreUsuario +"/PartidaGuardada.csv"); 
 
 			}else salir = true; 
 			 
 	   } while(posibleAcierto(resultado) == false && salir == false);
 	
-	    WriteCSV.guardarTablero(tablero, intentos, resultadoTablero, "partidas/Usuarios/" + usuario + "/TableroGuardado.csv", true);	
+	    WriteCSV.guardarTablero(tablero, intentos, resultadoTablero, "partidas/Usuarios/" + nombreUsuario + "/TableroGuardado.csv", true);	
 	    
 	    	if (salir == false) { System.out.println("\r\n¡¡Has acertado!! ¿Quieres guardar la partida? (s/n) ");
 	    	
@@ -391,7 +388,7 @@ public class Mastermind {
 				switch (guardarPartida) {
 				case 's':
 					
-					WriteCSV.escribirArchivo(usuario, intentos+intentosGuardados, "partidas/Usuarios/Top5.csv");
+					WriteCSV.escribirArchivo(nombreUsuario, intentos+intentosGuardados, "partidas/Usuarios/Top5.csv");
 					break;
 				case 'n':
 					break;
@@ -449,7 +446,7 @@ public class Mastermind {
 				limpiarConsola();
 				System.out.println("Introduce el nombre del usuario:");
 				
-				String nombreUsuario = in.next();
+				String nombreUsuario = in.next().toLowerCase();
 				partidaGuardada(nombreUsuario);
 				
 				restart=true;

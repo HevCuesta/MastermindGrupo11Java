@@ -208,7 +208,7 @@ public class WriteCSV {
 				case '_': bufferedWriter.write("X"); break;
 				
 			}
-	//	bufferedWriter.newLine();
+		bufferedWriter.newLine();
 		}
 
 		bufferedWriter.close();
@@ -270,12 +270,6 @@ public class WriteCSV {
 	
 	public static boolean nuevaPartidaUsuario(String Usuario) {
 		
-		
-		
-		
-		
-		
-		
 			File directorio = new File("partidas/Usuarios/" + Usuario);
 			
 			
@@ -292,12 +286,6 @@ public class WriteCSV {
 		            }     
 	}
 
-	public static void buscarPartidaUsuario(String Usuario) {
-		
-		
-		
-		
-	}
 
 	public static void borrarPartidaUsuario(String Usuario) {
 		
