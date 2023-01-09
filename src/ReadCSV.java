@@ -25,8 +25,8 @@ public class ReadCSV {
 				linea = Lectura.readLine();
 			}
 			combinacionArray = combinacionGuardada.toCharArray();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (IOException e) {
+			System.err.println("Archivo no encontrado");
 		}
 		return combinacionArray;
 	}
@@ -53,8 +53,11 @@ public class ReadCSV {
 			}
 			
 			Lectura.close();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (IOException e) {
+			System.err.println("Archivo no encontrado");
+			return 9999;
+		} catch (Exception ex) {
+			return 9999;
 		}
 		return intentos;
 	}
@@ -154,14 +157,21 @@ public class ReadCSV {
 	public static int numLineasArchivo(String direccionArchivo) {
 		//Se cuentan el numero de lineas para no hacer print a mas de cinco.
 		int lineas = 0;
-		try (BufferedReader reader = new BufferedReader(new FileReader(direccionArchivo))) {
-			 while (reader.readLine() != null) lineas++;
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		File archivo = new File(direccionArchivo);
+		if (archivo.exists()) {
+			try (BufferedReader reader = new BufferedReader(new FileReader(direccionArchivo))) {
+				 while (reader.readLine() != null) lineas++;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			return lineas;
+		} else {
+			return 999;
 		}
-		return lineas;
-	}
+
 	
 	
 	
+	
+}
 }

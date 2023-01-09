@@ -275,7 +275,7 @@ public class Mastermind {
 
 				switch (guardarPartida) {
 				case 's':
-					WriteCSV.escribirArchivo(nombreUsuario, intentos, "partidas/Usuarios/Top5.csv");
+					WriteCSV.escribirArchivo(nombreUsuario, intentos, "partidas/Top5.csv");
 					System.out.println("Partida guardada correctamente.");
 					break;
 				case 'n':
@@ -298,20 +298,14 @@ public class Mastermind {
 		Scanner in = new Scanner(System.in);
 		String nombreUsuario = usuario.toLowerCase();
 		int intentosGuardados = ReadCSV.intentosPartidaGuardada("partidas/Usuarios/"+ nombreUsuario + "/PartidaGuardada.csv" );
+		// En caso de que el archivo no exista, la funcion nos devuelve 9999 y eso nos lleva de vuelta al menu
+		if (intentosGuardados==9999) return;
 		
 		
 		
 		char[] combinacionSecretaGuarda = ReadCSV.leerCombinacionGuardada("partidas/Usuarios/"+ nombreUsuario + "/PartidaGuardada.csv");
-
 		
 		
-		
-		//System.out.println("Ingrese el nombre de usuario:");
-		
-	//	nombreUsuario = in.next(); 
-		
-		
-		//WriteCSV.buscarPartidaUsuario(nombreUsuario);
 		
 		System.out.println("¡Bienvenido de nuevo! Tu última partida guardada tiene las siguientes estadisticas: ");
 		System.out.println("Intentos: " + intentosGuardados);
@@ -388,7 +382,7 @@ public class Mastermind {
 				switch (guardarPartida) {
 				case 's':
 					
-					WriteCSV.escribirArchivo(nombreUsuario, intentos+intentosGuardados, "partidas/Usuarios/Top5.csv");
+					WriteCSV.escribirArchivo(nombreUsuario, intentos+intentosGuardados, "partidas/Top5.csv");
 					break;
 				case 'n':
 					break;
@@ -454,11 +448,11 @@ public class Mastermind {
 			case 3:
 				limpiarConsola();
 				int numLineas = 5;
-				ReadCSV.leerArchivo("partidas/Usuarios/Top5.csv", numLineas);
+				ReadCSV.leerArchivo("partidas/Top5.csv", numLineas);
 				System.out.println("Presione 3 y enter otra vez si quiere ver todos los resultados, presione cualquier otra tecla para volver al menu.");
 				if (in.next().equals("3")) {
-					numLineas = ReadCSV.numLineasArchivo("partidas/Usuarios/Top5.csv");
-					ReadCSV.leerArchivo("partidas/Usuarios/Top5.csv", numLineas);
+					numLineas = ReadCSV.numLineasArchivo("partidas/Top5.csv");
+					ReadCSV.leerArchivo("partidas/Top5.csv", numLineas);
 					System.out.println("Recuerda que el numero de la derecha son los intentos. Menos intentos = Mejor resultado");
 					break;
 					
