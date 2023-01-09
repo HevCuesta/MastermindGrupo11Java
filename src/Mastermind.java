@@ -246,17 +246,18 @@ public class Mastermind {
 				for(int i = 0; i < 5; i++)	resultadoTablero[intentos][i] = resultado[i]; //conversión de las fichas blancas y negras a una matriz para mayor facilidad.
 					
 				pintarTablero(tablero, intentos, resultadoTablero);	
-				
+				intentos++;
 			}
 
 
 
-			intentos++;
-			WriteCSV.guardarTablero(tablero, intentos, resultadoTablero, "partidas/Usuarios/" + nombreUsuario + "/TableroGuardado.csv", false);
+			
+			
 			WriteCSV.escribirArchivoGuardar(combinacionSecreta, intentos, "partidas/Usuarios/" + nombreUsuario + "/PartidaGuardada.csv"); 
 
 	   } while(posibleAcierto(resultado) == false);
 	
+	    WriteCSV.guardarTablero(tablero, intentos, resultadoTablero, "partidas/Usuarios/" + nombreUsuario + "/TableroGuardado.csv", false);
 	    	
 	    	System.out.println("\r\n¡¡Has acertado!! ¿Quieres guardar la partida? (s/n) ");
 	    	
@@ -277,6 +278,7 @@ public class Mastermind {
 				case 's':
 					WriteCSV.escribirArchivo(nombreUsuario, intentos, "partidas/Top5.csv");
 					System.out.println("Partida guardada correctamente.");
+					WriteCSV.borrarPartidaUsuario(nombreUsuario);
 					break;
 				case 'n':
 					WriteCSV.borrarPartidaUsuario(nombreUsuario);
@@ -350,10 +352,10 @@ public class Mastermind {
 					
 				pintarTablero(tablero, intentos, resultadoTablero);	
 			
-
+				intentos++;
 			}
 
-			intentos++;
+			
 
 			
 			WriteCSV.escribirArchivoGuardar(combinacionSecreta, intentos+intentosGuardados, "partidas/Usuarios/"+ nombreUsuario +"/PartidaGuardada.csv"); 
@@ -383,8 +385,13 @@ public class Mastermind {
 				case 's':
 					
 					WriteCSV.escribirArchivo(nombreUsuario, intentos+intentosGuardados, "partidas/Top5.csv");
+					WriteCSV.borrarPartidaUsuario(nombreUsuario);
+					
 					break;
 				case 'n':
+					
+					WriteCSV.borrarPartidaUsuario(nombreUsuario);
+					
 					break;
 				default:
 					aux = true;
@@ -474,8 +481,9 @@ public class Mastermind {
 				
 				break;
 			case 6:
+				System.out.println("Borrar partida:");
 				//WriteCSV.nuevaPartidaUsuario("Paco");
-				WriteCSV.borrarPartidaUsuario("p4");
+				WriteCSV.borrarPartidaUsuario(in.next());
 				break;
 			default:
 				System.err.println("Eleccion no valida, pruebe otra vez.");

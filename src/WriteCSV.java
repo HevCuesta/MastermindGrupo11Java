@@ -287,17 +287,21 @@ public class WriteCSV {
 	}
 
 
-	public static void borrarPartidaUsuario(String Usuario) {
+	public static void borrarPartidaUsuario(String usuario) {
 		
 		
 		
-		File directorio = new File("partidas/Usuarios/Paco");
+		File directorio = new File("partidas/Usuarios/"+ usuario + "/");
+		File Tablero = new File("partidas/Usuarios/"+ usuario + "/TableroGuardado.csv");
+		File Partida = new File("partidas/Usuarios/"+ usuario + "/PartidaGuardada.csv");
 		
-	if(directorio.isFile())	directorio.delete();
-		
-	else System.out.println("No hay carpeta");
+	if(directorio.exists()) {
+       Tablero.delete();
+	   Partida.delete();
+	   directorio.delete();
+	}	else System.out.println("No hay carpeta");
 	
-		if(directorio.delete()) System.out.println("Directorio borrado.");
+		if(!directorio.exists()) System.out.println("Directorio borrado.");
 		
 	}
 
