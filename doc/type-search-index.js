@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"<Unnamed>","l":"Mastermind"},{"p":"<Unnamed>","l":"ReadCSV"},{"p":"<Unnamed>","l":"WriteCSV"}];updateSearchResults();

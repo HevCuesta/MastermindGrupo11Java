@@ -6,7 +6,7 @@ import java.io.IOException;
 
 /**
 *@author JAVIER CHOUZA Y DANIEL CUESTA
-*@version 1.0
+*@since 1.0
 */
 public class ReadCSV {
 	public static final String DELIMITADOR = ",";

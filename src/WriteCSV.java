@@ -13,7 +13,7 @@ import java.io.File;
 
 /**
 *@author JAVIER CHOUZA Y DANIEL CUESTA
-*@version 1.0
+*@since 1.0
 */
 public class WriteCSV {
 	public static final String DELIMITADOR = ",";
@@ -66,34 +66,6 @@ public class WriteCSV {
 		//System.out.println(secretoStr);
 		
 		try {
-			
-			
-		/*	File Dani = new File ("partidas/Usuarios/Dani/TableroGuardado");
-			
-			BufferedReader bufferedReader = new BufferedReader(new FileReader(Dani));
-
-			 String linea;
-			 //numLineas es una variable que permite ver mas resultados
-			 while ((linea = bufferedReader.readLine()) != null) {
-				 // Se lee linea a linea, con las comas como delimitadores de campo en cada linea
-				System.out.print(linea);
-				System.out.print("\n");
-				 
-				 // Volver a leer otra línea del fichero para cerrar el while
-				
-				 
-			 }
-			 bufferedReader.close();
-			
-			
-			
-			
-			
-		
-			*/
-			
-			
-			
 			
 			FileWriter fileWriter = new FileWriter(direccionArchivo, true); 														
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -276,12 +248,12 @@ public class WriteCSV {
 			if (!directorio.exists()) {}
 	
 			if (directorio.mkdirs()) {
-		                System.out.println("Directorio creado");
+		                System.out.println("Partida creada");
 		          
 			return false;
 		                
 			} else {
-		            	System.out.println("Error al crear directorio. Pruebe a introducir otro nombre.");
+		            	System.out.println("Error al crear la partida. Pruebe a introducir otro nombre.");
 		            	return true;
 		            }     
 	}
@@ -301,7 +273,7 @@ public class WriteCSV {
 	   directorio.delete();
 	}	else System.out.println("No hay carpeta");
 	
-		if(!directorio.exists()) System.out.println("Directorio borrado.");
+		if(!directorio.exists()) System.out.println("Partida borrada.");
 		
 	}
 

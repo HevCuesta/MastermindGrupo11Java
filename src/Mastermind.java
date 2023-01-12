@@ -4,7 +4,7 @@ import java.util.Scanner;
 /**
 *
 *@author JAVIER CHOUZA Y DANIEL CUESTA
-*@version 1.0
+*@since 1.0
 *
 */
 public class Mastermind {
@@ -216,7 +216,7 @@ public class Mastermind {
 		
 		while(WriteCSV.nuevaPartidaUsuario(nombreUsuario)) nombreUsuario = in.next();
 		
-
+		
 		char tablero[][] = new char [50][5];
 		char combinacionSecreta[] = new char[5];	
 		char combinacion[] = new char[5];
@@ -224,20 +224,29 @@ public class Mastermind {
 		int intentos = 0;
 		char guardarPartida = '-';
 		boolean aux = true; //para posibles errores de caracteres no correspondientes.
+		boolean salir = false;
 		
 		char resultadoTablero[][] = new char[50][5];
 		
 		for(int i = 0; i < combinacionSecreta.length; i++) combinacionSecreta[i] = generarCombinacion(i);
 
 		
+			
+			
+				
+				
 	    do {	
-	    	limpiarConsola();
-			System.out.println("Introduce la combinación de colores a adivinar:");
+			System.out.println("Introduce la combinación de colores a adivinar (Para salir en cualquier momento, presione 0):");
 			combinacion = in.next().toUpperCase().toCharArray();
+		
+			if (combinacion[0] == '0') {
 			
 			
+				salir = true;
 			
-			if(validarRespuesta(combinacion) == true) {
+			}else { 
+				
+				if(validarRespuesta(combinacion) == true && salir==false) {
 				for(int i = 0; i < 5; i++)	tablero[intentos][i] = combinacion[i];
 						
 				resultado = analizarRespuesta(combinacion, combinacionSecreta);	
@@ -246,20 +255,21 @@ public class Mastermind {
 				for(int i = 0; i < 5; i++)	resultadoTablero[intentos][i] = resultado[i]; //conversión de las fichas blancas y negras a una matriz para mayor facilidad.
 					
 				pintarTablero(tablero, intentos, resultadoTablero);	
+			
 				intentos++;
 			}
-
-
-
 			
 			
-			WriteCSV.escribirArchivoGuardar(combinacionSecreta, intentos, "partidas/Usuarios/" + nombreUsuario + "/PartidaGuardada.csv"); 
+			
+			WriteCSV.escribirArchivoGuardar(combinacionSecreta, intentos, "partidas/Usuarios/"+ nombreUsuario +"/PartidaGuardada.csv"); 
 
-	   } while(posibleAcierto(resultado) == false);
+		}			
+
+	   } while(posibleAcierto(resultado) == false && salir == false);
 	
 	    WriteCSV.guardarTablero(tablero, intentos, resultadoTablero, "partidas/Usuarios/" + nombreUsuario + "/TableroGuardado.csv", false);
 	    	
-	    	System.out.println("\r\n¡¡Has acertado!! ¿Quieres guardar la partida? (s/n) ");
+	    	if (salir == false) { System.out.println("\r\n¡¡Has acertado!! ¿Quieres guardar la partida? (s/n) ");
 	    	
 			do {
 
@@ -285,9 +295,13 @@ public class Mastermind {
 					break;
 				default:
 					aux = true;
-					System.out.println("Por favor introduzca2" + "'s'" + "o" + "'n'");
+					System.out.println("Por favor introduzca" + "'s'" + "o" + "'n'");
 				}
-			} while (aux);
+				
+			
+				
+			} while (aux && salir==false);
+	 	}
 	}
 
 	/**
@@ -366,7 +380,9 @@ public class Mastermind {
 	
 	    WriteCSV.guardarTablero(tablero, intentos, resultadoTablero, "partidas/Usuarios/" + nombreUsuario + "/TableroGuardado.csv", true);	
 	    
-	    	if (salir == false) { System.out.println("\r\n¡¡Has acertado!! ¿Quieres guardar la partida? (s/n) ");
+	    	if (salir == false) {
+	    		System.out.println("\r\n¡¡Has acertado!! ¿Quieres guardar la partida? (s/n) ");
+	    	}
 	    	
 			do {
 
@@ -400,7 +416,7 @@ public class Mastermind {
 			} while (aux);
 	
 	    	}
-	}
+	
 	
 	/**
 	*@return Metodo main
@@ -418,7 +434,8 @@ public class Mastermind {
 					+ "2. Seguir con una partida anterior \r\n "
 					+ "3. Clasificación de los mejores jugadores \r\n "
 					+ "4. Como Jugar \r\n "
-					+ "5. Salir");
+					+ "5. Salir"
+					+ "6. Borrar partida");
 
 			int eleccion1;
 
