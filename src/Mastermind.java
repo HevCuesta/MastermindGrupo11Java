@@ -434,7 +434,7 @@ public class Mastermind {
 					+ "2. Seguir con una partida anterior \r\n "
 					+ "3. Clasificación de los mejores jugadores \r\n "
 					+ "4. Como Jugar \r\n "
-					+ "5. Salir"
+					+ "5. Salir \r\n"
 					+ "6. Borrar partida");
 
 			int eleccion1;
