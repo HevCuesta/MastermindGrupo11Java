@@ -291,7 +291,7 @@ public class Mastermind {
 					for (int i = 0; i < 5; i++)
 						resultadoTablero[intentos][i] = resultado[i]; // conversión de las fichas blancas y negras a una
 																		// matriz para mayor facilidad.
-
+					limpiarConsola();
 					pintarTablero(tablero, intentos, resultadoTablero);
 
 					intentos++;
