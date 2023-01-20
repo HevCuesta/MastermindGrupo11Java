@@ -217,28 +217,8 @@ public class Mastermind {
 
 	}
 
-	/**
-	 * @return Array de chars para almacenar en el archivo de guardado
-	 * @param combinacion        Intento de combinaciona a adivinar
-	 * @param combinacionSecreta Combinacion generada por el programa
-	 */
-	public static char[] letrasAdivinadas(char combinacion[], char combinacionSecreta[]) {
-		char adivinadas[] = new char[combinacionSecreta.length];
-		try {
-			for (int i = 0; i < combinacionSecreta.length; i++) {
-				if (combinacionSecreta[i] == combinacion[i]) {
-					adivinadas[i] = combinacionSecreta[i];
-				} else
-					adivinadas[i] = '_';
-
-			}
-		} catch (Exception e) {
-			System.out.print("");
-
-		}
-		return adivinadas;
-
-	}
+	
+	
 
 	/**
 	 * @return Partida nueva
