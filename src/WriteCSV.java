@@ -268,7 +268,11 @@ public class WriteCSV {
 			}
 		}
 	}
-
+	
+	/**
+	 * @param Usuario Nombre de usuario
+	 * @return Crea un nuevo directorio para cada usuario de la partida guardada
+	 */
 	public static boolean nuevaPartidaUsuario(String Usuario) {
 
 		File directorio = new File("partidas/Usuarios/" + Usuario);
@@ -286,7 +290,11 @@ public class WriteCSV {
 			return true;
 		}
 	}
-
+	
+	/**
+	 * @return Borra la partida que el usuario desee
+	 * @param usuario Nombre de usuario 
+	 */
 	public static void borrarPartidaUsuario(String usuario) {
 
 		File directorio = new File("partidas/Usuarios/" + usuario + "/");

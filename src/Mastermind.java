@@ -443,6 +443,7 @@ public class Mastermind {
 	 * @return Metodo main
 	 */
 	public static void main(String[] args) {
+		limpiarConsola();
 		// Para el input del usuario
 		Scanner in = new Scanner(System.in);
 
@@ -519,7 +520,6 @@ public class Mastermind {
 				break;
 			case 6:
 				System.out.println("Borrar partida:");
-				// WriteCSV.nuevaPartidaUsuario("Paco");
 				WriteCSV.borrarPartidaUsuario(in.next());
 				break;
 			default:

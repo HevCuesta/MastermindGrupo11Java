@@ -9,7 +9,10 @@ import java.io.IOException;
  */
 public class ReadCSV {
 	public static final String DELIMITADOR = ",";
-
+	/**
+	 * @param direccionArchivo Direccion del archivo
+	 * @return Array de chars que contiene la combinacion de la partida guardada
+	 */
 	public static char[] leerCombinacionGuardada(String direccionArchivo) {
 		BufferedReader Lectura = null;
 		String combinacionGuardada = null;
@@ -31,8 +34,8 @@ public class ReadCSV {
 	}
 
 	/**
-	 * @return
-	 * @param direccionArchivo
+	 * @return Numero de intentos de la partida guardada
+	 * @param direccionArchivo DIreccion del archivos
 	 */
 	public static int intentosPartidaGuardada(String direccionArchivo) {
 		BufferedReader Lectura = null;
@@ -105,7 +108,11 @@ public class ReadCSV {
 		}
 
 	}
-
+/**
+ * @return Imprime el tablero por consola
+ * @param direccionArchivo Direccion del archivo guardado
+ * @param numLineas Numero de lineas del archivo
+ */
 	public static void leerTablero(String direccionArchivo, int numLineas) {
 		// Se abre el archivo en un bufer de lectura
 		BufferedReader Lectura = null;
@@ -146,7 +153,10 @@ public class ReadCSV {
 
 	}
 
-	// Devuelve el numero de lineas de un archivo
+	/**
+	 * @param direccionArchivo Direccion del archivo
+	 * @return Numero de lineas de un archivo
+	 */
 	public static int numLineasArchivo(String direccionArchivo) {
 		// Se cuentan el numero de lineas para no hacer print a mas de cinco.
 		int lineas = 0;
