@@ -305,11 +305,13 @@ public class WriteCSV {
 			Tablero.delete();
 			Partida.delete();
 			directorio.delete();
+			System.out.println("Partida borrada.");
+		
 		} else
 			System.out.println("No hay carpeta");
 
-		if (!directorio.exists())
-			System.out.println("Partida borrada.");
+		
+			
 
 	}
 
