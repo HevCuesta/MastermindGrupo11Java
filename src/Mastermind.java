@@ -502,7 +502,7 @@ public class Mastermind {
 					break;
 
 				} else
-					in.close();
+					//in.close();
 				restart = true;
 				break;
 			case 4:

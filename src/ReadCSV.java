@@ -63,8 +63,11 @@ public class ReadCSV {
 		}
 		return intentos;
 	}
-
-	// Funcion para leer un archivo, en este caso el de top5
+	/**
+	 * @return tabla top5 (archivo csv)
+	 * @param direccionArchivo ubicación del archivo
+	 * @param numLineas cantidad de líneas presente en el archivo
+	 */
 	public static void leerArchivo(String direccionArchivo, int numLineas) {
 		// Se abre el archivo en un bufer de lectura
 		BufferedReader Lectura = null;
